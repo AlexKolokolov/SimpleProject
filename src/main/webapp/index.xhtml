@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 
-<html lang="en" 
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-	<h:head>
-		<title>Hello World!</title>
-	</h:head>
-	<h:body>
-		<h1>Hello World!</h1>
-		<p>Hello, #{clientManager.name}</p>
-	</h:body>
+<h:head>
+	<title>Employee manager</title>
+</h:head>
+<h:body>
+	<h1>Employee manager</h1>
+	<fieldset>
+		<legend>Employees</legend>
+				<h:form>
+					<h:commandButton value="Show all employees">
+						<f:ajax execute="@form" render="allEmployees" />
+					</h:commandButton>
+				</h:form>
+				<h:panelGroup id="allEmployees">
+						<ui:repeat value="#{employeeDataController.employees}" var="employee">
+							<h:outputText value="#{employee}" /><br/>
+						</ui:repeat>
+				</h:panelGroup>
+	</fieldset>
+</h:body>
 </html>
 
