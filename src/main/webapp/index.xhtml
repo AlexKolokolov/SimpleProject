@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a="http://java.sun.com/jsf/passthrough">
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<title>Employee manager</title>
@@ -31,11 +31,11 @@
 		<h:form>
 			<h:inputText id="firstName"
 				value="#{newEmployeeController.firstName}"
-				a:placeholder="First name" />
+				a:placeholder="Enter first name" />
 			<br />
 			<br />
 			<h:inputText id="lastName" value="#{newEmployeeController.lastName}"
-				a:placeholder="Last name" />
+				a:placeholder="Enter last name" />
 			<br />
 			<br />
 			<h:commandButton value="Add employee">
@@ -50,7 +50,7 @@
 		<h:form>
 			<h:inputText id="id"
 				value="#{employeeRemoveController.id}"
-				a:placeholder="ID" />
+				a:placeholder="Enter employee ID" />
 			<br />
 			<br />
 			<h:commandButton value="Remove employee">
