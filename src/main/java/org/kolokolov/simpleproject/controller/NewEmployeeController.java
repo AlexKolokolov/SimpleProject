@@ -15,8 +15,7 @@ public class NewEmployeeController {
     
     @Autowired
     private EmployeeService employeeService;
-    
-    private int id;
+
     private String firstName;
     private String lastName;
     
@@ -27,19 +26,13 @@ public class NewEmployeeController {
         if (firstName == null || lastName == null) {
             msg = "";
         } else {
-            employee = new Employee(id, firstName, lastName);
+            employee = new Employee(firstName, lastName);
             employeeService.addNewEmployee(employee);
             msg = String.format("New employee %s has been added", employee);
         }
         return msg;
     }
     
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
     public String getFirstName() {
         return firstName;
     }

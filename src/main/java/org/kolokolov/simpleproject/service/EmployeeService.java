@@ -22,7 +22,15 @@ public class EmployeeService {
     }
     
     public void addNewEmployee(Employee employee) {
-        employee.setId(employeeDAO.getNextId());
         employeeDAO.addNewEmployee(employee);
+    }
+
+    public void removeEmployee(String id) {
+        employeeDAO.removeEmployee(id);
+
+    }
+
+    public Employee getAllEmployeeById(String id) {
+        return employeeDAO.getEmployeesById(id);
     }
 }

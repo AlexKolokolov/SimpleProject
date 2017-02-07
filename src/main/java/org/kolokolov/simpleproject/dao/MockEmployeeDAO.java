@@ -1,7 +1,9 @@
 package org.kolokolov.simpleproject.dao;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.kolokolov.simpleproject.model.Employee;
 import org.springframework.stereotype.Repository;
@@ -9,17 +11,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MockEmployeeDAO implements EmployeeDAO {
     
-    private List<Employee> employees;
+    int lastId;
+    
+    private Map<String, Employee> employees;
     
     {
-        employees = new ArrayList<Employee>();
-        employees.add(new Employee(1, "John", "Smith"));
-        employees.add(new Employee(2, "David", "Malan"));
-        employees.add(new Employee(3, "Ron", "Perlman"));
+        employees = new LinkedHashMap<String, Employee>();
+        addNewEmployee(new Employee("John", "Smith"));
+        addNewEmployee(new Employee("David", "Malan"));
+        addNewEmployee(new Employee("Ron", "Perlman"));
     }
 
     public List<Employee> getAllEmployees() {
-        return employees;
+        return new ArrayList<Employee>(employees.values());
     }
 
     public List<Employee> getEmployeesByLastName() {
@@ -28,10 +32,15 @@ public class MockEmployeeDAO implements EmployeeDAO {
     }
 
     public void addNewEmployee(Employee employee) {
-        employees.add(employee);
+        employee.setId(++lastId);
+        employees.put(String.valueOf(employee.getId()), employee);
     }
     
-    public int getNextId() {
-        return employees.get(employees.size() - 1).getId() + 1;
+    public void removeEmployee(String id) {
+        employees.remove(id);
+    }
+    
+    public Employee getEmployeesById(String id) {
+        return employees.get(id);
     }
 }
