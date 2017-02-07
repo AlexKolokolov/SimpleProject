@@ -11,6 +11,10 @@ public class MockDepartmentDAO implements DepartmentDAO {
     
     private List<Department> departments;
     
+    public MockDepartmentDAO() {
+        System.out.println("MockDepartmentDAO instantiated");
+    }
+
     {
         departments = new ArrayList<Department>();
         departments.add(new Department(1, "Management"));

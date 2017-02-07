@@ -13,6 +13,10 @@ public class DepartmentService {
     @Autowired
     private DepartmentDAO departmentDAO;
     
+    public DepartmentService() {
+        System.out.println("DepartmentService instantiated");
+    }
+
     public List<Department> getDepartments() {
         return departmentDAO.getAllDepartments();
     }

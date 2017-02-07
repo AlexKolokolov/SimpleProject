@@ -17,13 +17,12 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 public class NewEmployeeController {
     
-    
-    @Autowired
-    private EmployeeService employeeService;
-    
     @Autowired
     private DepartmentService departmentService;
-    
+
+    @Autowired
+    private EmployeeService employeeService;
+
     private String firstName;
     private String lastName;
     
@@ -33,9 +32,16 @@ public class NewEmployeeController {
     
     private Employee employee;
     
-    {
+    
+    
+    public NewEmployeeController() {
+        System.out.println("NewEmployeeController instantiated");
         departments = departmentService.getDepartments();
     }
+
+//    {
+//        departments = departmentService.getDepartments();
+//    }
     
     public String getMessage() {
         String msg;
