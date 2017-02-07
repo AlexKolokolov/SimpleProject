@@ -23,14 +23,17 @@ public class NewEmployeeController {
     
     public String getMessage() {
         String msg;
-        if (firstName == null || lastName == null) {
+        if (employee == null) {
             msg = "";
         } else {
-            employee = new Employee(firstName, lastName);
-            employeeService.addNewEmployee(employee);
             msg = String.format("New employee %s has been added", employee);
         }
         return msg;
+    }
+    
+    public void addNewEmployee() {
+    	employee = new Employee(firstName, lastName);
+        employeeService.addNewEmployee(employee);
     }
     
     public String getFirstName() {

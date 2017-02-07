@@ -15,6 +15,8 @@ public class EmployeeRemoveController {
     
     private String id;
     
+    private Employee employeeToRemove;
+    
     @Autowired
     private EmployeeService employeeService;
 
@@ -34,15 +36,17 @@ public class EmployeeRemoveController {
         String msg;
         if (id == null) {
             msg = "";
+        } else if (employeeToRemove != null) { 
+        	msg = String.format("Employee %s has been removed", employeeToRemove);
         } else {
-            Employee employeeToRemove = employeeService.getAllEmployeeById(id);
-            if (employeeToRemove != null) {
-                msg = String.format("Employee %s has been removed", employeeToRemove);
-                employeeService.removeEmployee(id);
-            } else {
-                msg = String.format("There is no employee with id %s", id);
-            }
+            msg = String.format("There is no employee with id %s", id);
         }
+   
         return msg;
+    }
+    
+    public void removeEmployee() {
+    	employeeToRemove = employeeService.getAllEmployeeById(id);
+    	employeeService.removeEmployee(id);
     }
 }
