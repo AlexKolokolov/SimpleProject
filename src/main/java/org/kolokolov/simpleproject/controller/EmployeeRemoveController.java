@@ -36,8 +36,12 @@ public class EmployeeRemoveController {
             msg = "";
         } else {
             Employee employeeToRemove = employeeService.getAllEmployeeById(id);
-            msg = String.format("Employee %s has been removed", employeeToRemove);
-            employeeService.removeEmployee(id);
+            if (employeeToRemove != null) {
+                msg = String.format("Employee %s has been removed", employeeToRemove);
+                employeeService.removeEmployee(id);
+            } else {
+                msg = String.format("There is no employee with id %s", id);
+            }
         }
         return msg;
     }
