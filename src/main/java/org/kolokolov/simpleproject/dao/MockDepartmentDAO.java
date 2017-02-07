@@ -3,16 +3,20 @@ package org.kolokolov.simpleproject.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Department;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MockDepartmentDAO implements DepartmentDAO {
     
+    private static Logger logger = LogManager.getLogger();
+    
     private List<Department> departments;
     
     public MockDepartmentDAO() {
-        System.out.println("MockDepartmentDAO instantiated");
+       logger.debug("MockDepartmentDAO instantiated");
     }
 
     {

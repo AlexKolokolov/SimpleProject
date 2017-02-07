@@ -2,6 +2,8 @@ package org.kolokolov.simpleproject.service;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.dao.DepartmentDAO;
 import org.kolokolov.simpleproject.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +11,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentService {
+    
+    private static Logger logger = LogManager.getLogger();
 
     @Autowired
     private DepartmentDAO departmentDAO;
     
     public DepartmentService() {
-        System.out.println("DepartmentService instantiated");
+        logger.debug("DepartmentService instantiated");
     }
 
     public List<Department> getDepartments() {

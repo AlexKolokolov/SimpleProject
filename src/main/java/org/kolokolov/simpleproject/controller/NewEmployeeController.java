@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.service.DepartmentService;
@@ -16,6 +18,8 @@ import org.springframework.web.context.annotation.RequestScope;
 @ManagedBean
 @RequestScope
 public class NewEmployeeController {
+    
+    private static Logger logger = LogManager.getLogger();
     
     @Autowired
     private DepartmentService departmentService;
@@ -35,7 +39,7 @@ public class NewEmployeeController {
     
     
     public NewEmployeeController() {
-        System.out.println("NewEmployeeController instantiated");
+        logger.debug("NewEmployeeController instantiated");
         departments = departmentService.getDepartments();
     }
 
