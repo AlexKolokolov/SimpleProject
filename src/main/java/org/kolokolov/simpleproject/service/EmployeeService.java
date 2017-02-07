@@ -7,7 +7,6 @@ import org.kolokolov.simpleproject.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class EmployeeService {
     
@@ -20,5 +19,10 @@ public class EmployeeService {
 
     public void setEmployeeDAO(EmployeeDAO employeeDAO) {
         this.employeeDAO = employeeDAO;
+    }
+    
+    public void addNewEmployee(Employee employee) {
+        employee.setId(employeeDAO.getNextId());
+        employeeDAO.addNewEmployee(employee);
     }
 }

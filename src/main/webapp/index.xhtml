@@ -3,8 +3,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://java.sun.com/jsf/passthrough">
 
 <h:head>
 	<title>Employee manager</title>
@@ -13,16 +13,36 @@
 	<h1>Employee manager</h1>
 	<fieldset>
 		<legend>Employees</legend>
-				<h:form>
-					<h:commandButton value="Show all employees">
-						<f:ajax execute="@form" render="allEmployees" />
-					</h:commandButton>
-				</h:form>
-				<h:panelGroup id="allEmployees">
-						<ui:repeat value="#{employeeDataController.employees}" var="employee">
-							<h:outputText value="#{employee}" /><br/>
-						</ui:repeat>
-				</h:panelGroup>
+		<h:form>
+			<h:commandButton value="Show all employees">
+				<f:ajax execute="@form" render="allEmployees" />
+			</h:commandButton>
+		</h:form>
+		<h:panelGroup id="allEmployees">
+			<ui:repeat value="#{employeeDataController.employees}" var="employee">
+				<h:outputText value="#{employee}" />
+				<br />
+			</ui:repeat>
+		</h:panelGroup>
+	</fieldset>
+
+	<fieldset>
+		<legend>Add new employee</legend>
+		<h:form>
+			<h:inputText id="firstName"
+				value="#{newEmployeeController.firstName}"
+				a:placeholder="First name" />
+			<br />
+			<br />
+			<h:inputText id="lastName" value="#{newEmployeeController.lastName}"
+				a:placeholder="Last name" />
+			<br />
+			<br />
+			<h:commandButton value="Add employee">
+				<f:ajax execute="@form" render="message" />
+			</h:commandButton>
+		</h:form>
+		<h:outputText id="message" value="#{newEmployeeController.message}" />
 	</fieldset>
 </h:body>
 </html>

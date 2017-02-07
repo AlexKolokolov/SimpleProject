@@ -9,4 +9,6 @@ public interface EmployeeDAO {
     List<Employee> getEmployeesByLastName();
     
     void addNewEmployee(Employee employee);
+    
+    int getNextId();
 }

@@ -57,6 +57,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "[id: " + id + ", firstName: " + firstName + ", lastName: " + lastName + "]";
+        return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + "]";
     }
 }

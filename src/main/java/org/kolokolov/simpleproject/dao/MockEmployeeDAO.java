@@ -29,7 +29,9 @@ public class MockEmployeeDAO implements EmployeeDAO {
 
     public void addNewEmployee(Employee employee) {
         employees.add(employee);
-
     }
-
+    
+    public int getNextId() {
+        return employees.get(employees.size() - 1).getId() + 1;
+    }
 }
