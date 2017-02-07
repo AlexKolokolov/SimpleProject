@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
 import org.springframework.stereotype.Repository;
 
@@ -14,12 +15,14 @@ public class MockEmployeeDAO implements EmployeeDAO {
     int lastId;
     
     private Map<String, Employee> employees;
+  
     
     {
+        Department dep = new Department(1, "Management");
         employees = new LinkedHashMap<String, Employee>();
-        addNewEmployee(new Employee("John", "Smith"));
-        addNewEmployee(new Employee("David", "Malan"));
-        addNewEmployee(new Employee("Ron", "Perlman"));
+        addNewEmployee(new Employee("John", "Smith", dep));
+        addNewEmployee(new Employee("David", "Malan", dep));
+        addNewEmployee(new Employee("Ron", "Perlman", dep));
     }
 
     public List<Employee> getAllEmployees() {
@@ -43,4 +46,5 @@ public class MockEmployeeDAO implements EmployeeDAO {
     public Employee getEmployeesById(String id) {
         return employees.get(id);
     }
+
 }

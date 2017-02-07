@@ -29,8 +29,7 @@
 	<fieldset>
 		<legend>Add new employee</legend>
 		<h:form>
-			<h:inputText id="firstName"
-				value="#{newEmployeeController.firstName}"
+			<h:inputText id="firstName" value="#{newEmployeeController.firstName}"
 				a:placeholder="Enter first name" />
 			<br />
 			<br />
@@ -38,6 +37,13 @@
 				a:placeholder="Enter last name" />
 			<br />
 			<br />
+			<!--
+			<h:selectOneMenu value="#{newEmployeeController.department}">
+				<f:selectItems value="#{newEmployeeController.departments.name}" />
+			</h:selectOneMenu>
+			<br />
+			<br />
+			-->
 			<h:commandButton value="Add employee">
 				<f:ajax execute="@form" render="addEmployeeMessage" />
 			</h:commandButton>
