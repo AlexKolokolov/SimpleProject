@@ -1,0 +1,1 @@
+Copy the 'com' folder to the '.m2\repository' folder
