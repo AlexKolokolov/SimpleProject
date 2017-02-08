@@ -37,6 +37,7 @@
 				a:placeholder="Enter last name" />
 			<br />
 			<br />
+
 			<!--
 			<h:selectOneMenu value="#{newEmployeeController.department}">
 				<f:selectItems value="#{newEmployeeController.departments.name}" />
@@ -44,7 +45,9 @@
 			<br />
 			<br />
 			-->
-			<h:commandButton value="Add employee">
+
+
+			<h:commandButton value="Add employee" type="submit" action="#{newEmployeeController.addNewEmployee}">
 				<f:ajax execute="@form" render="addEmployeeMessage" />
 			</h:commandButton>
 		</h:form>
@@ -59,7 +62,7 @@
 				a:placeholder="Enter employee ID" />
 			<br />
 			<br />
-			<h:commandButton value="Remove employee">
+			<h:commandButton value="Remove employee" type="submit" action="#{employeeRemoveController.removeEmployee}">
 				<f:ajax execute="@form" render="removeEmployeeMessage" />
 			</h:commandButton>
 		</h:form>
