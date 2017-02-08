@@ -7,18 +7,21 @@ import java.util.Map;
 
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MockEmployeeDAO implements EmployeeDAO {
+	
+	@Autowired
+    private DepartmentDAO departmentDAO;
     
     int lastId;
     
     private Map<String, Employee> employees;
   
-    
-    {
-        Department dep = new Department(1, "Management");
+    public void init() {
+        Department dep = departmentDAO.getDepartmentById("1");
         employees = new LinkedHashMap<String, Employee>();
         addNewEmployee(new Employee("John", "Smith", dep));
         addNewEmployee(new Employee("David", "Malan", dep));
@@ -36,10 +39,13 @@ public class MockEmployeeDAO implements EmployeeDAO {
 
     public void addNewEmployee(Employee employee) {
         employee.setId(++lastId);
+        employee.getDepartment().addEmployee(employee);
         employees.put(String.valueOf(employee.getId()), employee);
     }
     
     public void removeEmployee(String id) {
+    	Employee employee = employees.get(id);
+    	employee.getDepartment().removeEmployee(employee);
         employees.remove(id);
     }
     

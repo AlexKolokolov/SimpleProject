@@ -8,6 +8,7 @@ public interface DepartmentDAO {
     
     List<Department> getAllDepartments();
     
-    public Department getDepartmentById(String id);
-
+    List<Department> getEmptyDepartments();
+    
+    Department getDepartmentById(String id);
 }

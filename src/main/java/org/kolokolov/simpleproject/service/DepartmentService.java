@@ -32,4 +32,8 @@ public class DepartmentService {
 	public Department getDepartmentById(String departmentId) {
 		return departmentDAO.getDepartmentById(departmentId);
 	}
+	
+	public List<Department> getEmptyDepartments() {
+		return departmentDAO.getEmptyDepartments();
+	}
 }

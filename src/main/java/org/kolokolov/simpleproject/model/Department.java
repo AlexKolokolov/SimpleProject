@@ -1,5 +1,7 @@
 package org.kolokolov.simpleproject.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Department {
@@ -7,6 +9,10 @@ public class Department {
     private String name;
     
     private List<Employee> employees;
+    
+    {
+    	employees = new ArrayList<>();
+    }
 
     public Department() {}
 
@@ -37,6 +43,19 @@ public class Department {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+    
+    public void addEmployee(Employee employee) {
+    	employees.add(employee);
+    }
+    
+    public void removeEmployee(Employee employee) {
+    	Iterator<Employee> iterator = employees.iterator();
+    	while (iterator.hasNext()) {
+    		if (employee.equals(iterator.next())) {
+    			iterator.remove();
+    		}
+    	}
     }
 
 	@Override

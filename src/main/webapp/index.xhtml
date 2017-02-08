@@ -65,6 +65,21 @@
 		</h:form>
 		<h:outputText id="removeEmployeeMessage" value="#{employeeRemoveController.message}" />
 	</fieldset>
+	
+	<fieldset>
+		<legend>Empty departments</legend>
+		<h:form>
+			<h:commandButton value="Show empty departments">
+				<f:ajax execute="@form" render="emptyDeps" />
+			</h:commandButton>
+		</h:form>
+		<h:panelGroup id="emptyDeps">
+			<ui:repeat value="#{departmentDataController.emptyDepartments}" var="emptyDepartment">
+				<h:outputText value="#{emptyDepartment}" />
+				<br />
+			</ui:repeat>
+		</h:panelGroup>
+	</fieldset>
 </h:body>
 </html>
 
