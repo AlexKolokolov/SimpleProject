@@ -7,5 +7,7 @@ import org.kolokolov.simpleproject.model.Department;
 public interface DepartmentDAO {
     
     List<Department> getAllDepartments();
+    
+    public Department getDepartmentById(String id);
 
 }

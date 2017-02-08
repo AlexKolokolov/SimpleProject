@@ -28,4 +28,8 @@ public class DepartmentService {
     public void setDepartmentDAO(DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
     }
+
+	public Department getDepartmentById(String departmentId) {
+		return departmentDAO.getDepartmentById(departmentId);
+	}
 }

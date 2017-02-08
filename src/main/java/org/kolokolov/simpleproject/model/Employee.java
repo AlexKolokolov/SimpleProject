@@ -13,6 +13,7 @@ public class Employee {
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.department = new Department(0, "MockDep");
     }
     
     public Employee(String firstName, String lastName, Department department) {
@@ -55,6 +56,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + "Dep: " + department.getName() + "]";
+        return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", Department: " + department.getName() + "]";
     }
 }

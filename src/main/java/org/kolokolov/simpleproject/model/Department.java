@@ -39,4 +39,8 @@ public class Department {
         this.employees = employees;
     }
 
+	@Override
+	public String toString() {
+		return "[" + id + ", " + name + "]";
+	}
 }

@@ -1,7 +1,9 @@
 package org.kolokolov.simpleproject.dao;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,21 +15,30 @@ public class MockDepartmentDAO implements DepartmentDAO {
     
     private static Logger logger = LogManager.getLogger();
     
-    private List<Department> departments;
+    private Map<String, Department> departments;
     
     public MockDepartmentDAO() {
        logger.debug("MockDepartmentDAO instantiated");
     }
 
     {
-        departments = new ArrayList<Department>();
-        departments.add(new Department(1, "Management"));
-        departments.add(new Department(2, "Production"));
-        departments.add(new Department(3, "Security"));
+        departments = new LinkedHashMap<String, Department>();
+        addDepartment(new Department(1, "Management"));
+        addDepartment(new Department(2, "Production"));
+        addDepartment(new Department(3, "Security"));
     }
 
     public List<Department> getAllDepartments() {
-        return departments;
+    	logger.debug("getAllDepartments method runs");
+        return new ArrayList<>(departments.values());
+    }
+    
+    private void addDepartment(Department department) {
+    	departments.put(String.valueOf(department.getId()), department);
     }
 
+    @Override
+    public Department getDepartmentById(String id) {
+    	return departments.get(id);
+    }
 }

@@ -1,6 +1,7 @@
 package org.kolokolov.simpleproject.controller;
 
-import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 
@@ -30,22 +31,24 @@ public class NewEmployeeController {
     private String firstName;
     private String lastName;
     
-    private Department department;
+    private String departmentId;
     
-    private List<Department> departments;
+    private Map<String, String> departments;
     
     private Employee employee;
     
-    
-    
     public NewEmployeeController() {
         logger.debug("NewEmployeeController instantiated");
-        departments = departmentService.getDepartments();
     }
 
 //    {
 //        departments = departmentService.getDepartments();
 //    }
+    
+    public void init() {
+    	departments = departmentService.getDepartments().stream().collect(Collectors.toMap(d -> d.getName(), d -> String.valueOf(d.getId())));
+    }
+    
     
     public String getMessage() {
         String msg;
@@ -58,7 +61,9 @@ public class NewEmployeeController {
     }
     
     public void addNewEmployee() {
-    	employee = new Employee(firstName, lastName);
+    	Department department = departmentService.getDepartmentById(departmentId);
+    	logger.debug("department: " + department);
+    	employee = new Employee(firstName, lastName, department);
         employeeService.addNewEmployee(employee);
     }
     
@@ -86,23 +91,26 @@ public class NewEmployeeController {
         this.employeeService = employeeService;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public List<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
-    }
 
     public void setDepartmentService(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
+
+	public Map<String, String> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(Map<String, String> departments) {
+		this.departments = departments;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+	
+	
 }
