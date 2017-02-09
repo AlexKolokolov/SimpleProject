@@ -33,9 +33,9 @@ public class HibernateDepartmentDAO implements DepartmentDAO {
 	@Override
 	@Transactional
 	public List<Department> getEmptyDepartments() {
+		String query = "SELECT d.department_id, d.name FROM department d LEFT JOIN employee e ON e.department_id = d.department_id WHERE e.department_id IS NULL";
 		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("FROM Department", Department.class).getResultList();
-
+		return (List<Department>) session.createSQLQuery(query).addEntity(Department.class).getResultList();
 	}
 
 	@Override
