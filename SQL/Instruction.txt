@@ -1,0 +1,5 @@
+1. Run project on server with hibernate.hbm2ddl.auto=create parameter in acplicationContext.xml
+	Hibernate will create all the neccessary tables.
+2. Add several Deparrtments to DB.
+	For instance: INSERT INTO department VALUES (1, 'Production'),(2, 'Management');
+3. Next time run project on server with hibernate.hbm2ddl.auto=update parameter in acplicationContext.xml.

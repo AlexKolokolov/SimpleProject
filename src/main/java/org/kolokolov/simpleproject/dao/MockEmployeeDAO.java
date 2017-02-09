@@ -8,12 +8,14 @@ import java.util.Map;
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MockEmployeeDAO implements EmployeeDAO {
 	
 	@Autowired
+	@Qualifier("mockDepartmentDAO")
     private DepartmentDAO departmentDAO;
     
     int lastId;
@@ -21,18 +23,18 @@ public class MockEmployeeDAO implements EmployeeDAO {
     private Map<String, Employee> employees;
   
     public void init() {
-        Department dep = departmentDAO.getDepartmentById("1");
+//        Department dep = departmentDAO.getDepartmentById("1");
         employees = new LinkedHashMap<String, Employee>();
-        addNewEmployee(new Employee("John", "Smith", dep));
-        addNewEmployee(new Employee("David", "Malan", dep));
-        addNewEmployee(new Employee("Ron", "Perlman", dep));
+//        addNewEmployee(new Employee("John", "Smith", dep));
+//        addNewEmployee(new Employee("David", "Malan", dep));
+//        addNewEmployee(new Employee("Ron", "Perlman", dep));
     }
 
     public List<Employee> getAllEmployees() {
         return new ArrayList<Employee>(employees.values());
     }
 
-    public List<Employee> getEmployeesByLastName() {
+    public List<Employee> getEmployeesByLastName(String LastName) {
         // TODO Auto-generated method stub
         return null;
     }

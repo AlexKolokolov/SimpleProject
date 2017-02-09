@@ -24,9 +24,9 @@ public class MockDepartmentDAO implements DepartmentDAO {
 
     {
         departments = new LinkedHashMap<String, Department>();
-        addDepartment(new Department(1, "Management"));
-        addDepartment(new Department(2, "Production"));
-        addDepartment(new Department(3, "Security"));
+//        addDepartment(new Department(1, "Management"));
+//        addDepartment(new Department(2, "Production"));
+//        addDepartment(new Department(3, "Security"));
     }
     
     @Override
