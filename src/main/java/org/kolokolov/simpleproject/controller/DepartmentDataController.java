@@ -1,5 +1,6 @@
 package org.kolokolov.simpleproject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -27,7 +28,11 @@ public class DepartmentDataController {
 	}
 
 	public List<Department> getEmptyDepartments() {
-		return departmentService.getEmptyDepartments();
+		List<Department> emptyDepartments = departmentService.getEmptyDepartments();
+		if (emptyDepartments == null) {
+			emptyDepartments = new ArrayList<>();
+		}
+		return emptyDepartments;
 	}
 
 	public void setDepartmentService(DepartmentService departmentService) {

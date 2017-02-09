@@ -1,5 +1,6 @@
 package org.kolokolov.simpleproject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -24,6 +25,10 @@ public class EmployeeDataController {
 
     public List<Employee> getEmployees() {
         logger.debug("getEmployees method runs");
-        return employeeService.getAllEmployees();
+        List<Employee> employees = employeeService.getAllEmployees();
+        if (employees == null) {
+        	employees = new ArrayList<>();
+        }
+        return employees;
     }
 }
