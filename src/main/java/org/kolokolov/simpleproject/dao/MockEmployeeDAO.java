@@ -23,11 +23,11 @@ public class MockEmployeeDAO implements EmployeeDAO {
     private Map<String, Employee> employees;
   
     public void init() {
-        Department dep = departmentDAO.getDepartmentById("1");
+//        Department dep = departmentDAO.getDepartmentById("1");
         employees = new LinkedHashMap<String, Employee>();
-        addNewEmployee(new Employee("John", "Smith", dep));
-        addNewEmployee(new Employee("David", "Malan", dep));
-        addNewEmployee(new Employee("Ron", "Perlman", dep));
+//        addNewEmployee(new Employee("John", "Smith", dep));
+//        addNewEmployee(new Employee("David", "Malan", dep));
+//        addNewEmployee(new Employee("Ron", "Perlman", dep));
     }
 
     public List<Employee> getAllEmployees() {

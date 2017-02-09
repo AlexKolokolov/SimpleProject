@@ -19,8 +19,6 @@ public class HibernateDepartmentDAO implements DepartmentDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	
-	
 	public HibernateDepartmentDAO() {
 		logger.debug("HibernateDepartmentDAO instantiated");
 	}
@@ -33,12 +31,15 @@ public class HibernateDepartmentDAO implements DepartmentDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Department> getEmptyDepartments() {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createQuery("FROM Department", Department.class).getResultList();
+
 	}
 
 	@Override
+	@Transactional
 	public Department getDepartmentById(String id) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Department.class, Integer.parseInt(id));

@@ -26,6 +26,7 @@ public class EmployeeDataController {
     public List<Employee> getEmployees() {
         logger.debug("getEmployees method runs");
         List<Employee> employees = employeeService.getAllEmployees();
+        logger.debug("getEmployees method returns: " + employees);
         if (employees == null) {
         	employees = new ArrayList<>();
         }

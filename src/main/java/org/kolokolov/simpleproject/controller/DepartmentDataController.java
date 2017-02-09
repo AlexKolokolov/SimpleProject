@@ -28,7 +28,9 @@ public class DepartmentDataController {
 	}
 
 	public List<Department> getEmptyDepartments() {
+		logger.debug("getEmptyDepartments method runs");
 		List<Department> emptyDepartments = departmentService.getEmptyDepartments();
+		logger.debug("getEmptyDepartments method returns: " + emptyDepartments);
 		if (emptyDepartments == null) {
 			emptyDepartments = new ArrayList<>();
 		}
