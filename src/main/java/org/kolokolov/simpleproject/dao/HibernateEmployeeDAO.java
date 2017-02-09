@@ -2,16 +2,26 @@ package org.kolokolov.simpleproject.dao;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+@Repository
 public class HibernateEmployeeDAO implements EmployeeDAO {
+	
+	private static Logger logger = LogManager.getLogger();
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	public HibernateEmployeeDAO() {
+		logger.debug("HibernateEmployeeDAO instantiated");
+	}
 
 	@Override
 	@Transactional
@@ -35,6 +45,7 @@ public class HibernateEmployeeDAO implements EmployeeDAO {
 	}
 
 	@Override
+	@Transactional
 	public void removeEmployee(String id) {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("DELETE Employee WHERE id = :id").setParameter("id", Integer.parseInt(id)).executeUpdate();

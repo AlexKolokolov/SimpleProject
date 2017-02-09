@@ -2,22 +2,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:context="http://www.springframework.org/schema/context"
+xmlns:tx="http://www.springframework.org/schema/tx"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 					http://www.springframework.org/schema/beans/spring-beans.xsd
 					http://www.springframework.org/schema/context 
-	   				http://www.springframework.org/schema/context/spring-context.xsd"
+	   				http://www.springframework.org/schema/context/spring-context.xsd
+	   				http://www.springframework.org/schema/tx
+      				 http://www.springframework.org/schema/tx/spring-tx.xsd"
 	   				default-init-method="init">	
 
 	<context:annotation-config />
+	
 	<context:component-scan base-package="org.kolokolov.simpleproject" />
+	
+	<tx:annotation-driven transaction-manager="txManager"/>
 	
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 
-	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
-        <property name="URL" value="${jdbc.url}" />
-        <property name="user" value="${jdbc.username}"/>        
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}"/>        
         <property name="password" value="${jdbc.password}"/>
-        <property name="connectionCachingEnabled" value="true"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
     </bean>
     
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -25,9 +31,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
         <property name="packagesToScan" value="org.kolokolov.simpleproject.model"/>
         <property name="hibernateProperties">
             <value>
-                hibernate.dialect=org.hibernate.dialect.OracleDialect
+                hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
                 hibernate.show_sql=true
-                hbm2ddl.auto=create
+                hibernate.hbm2ddl.auto=create
             </value>
         </property>
     </bean>
@@ -35,4 +41,5 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
 </beans>
