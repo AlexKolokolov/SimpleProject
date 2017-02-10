@@ -57,6 +57,12 @@ public class HibernateEmployeeDAO implements EmployeeDAO {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Employee.class, Integer.parseInt(id));
 	}
+	
+	@Override
+	public void persistEmployee(Employee employee) {
+		Session session = sessionFactory.getCurrentSession();
+		session.persist(employee);
+	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

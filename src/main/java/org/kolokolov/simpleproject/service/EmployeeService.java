@@ -35,4 +35,9 @@ public class EmployeeService {
     public Employee getAllEmployeeById(String id) {
         return employeeDAO.getEmployeesById(id);
     }
+
+	public void persistEmployee(Employee employee) {
+		employeeDAO.persistEmployee(employee);
+		
+	}
 }

@@ -13,4 +13,6 @@ public interface EmployeeDAO {
     void removeEmployee(String id);
     
     Employee getEmployeesById(String id);
+    
+	void persistEmployee(Employee employee);
 }

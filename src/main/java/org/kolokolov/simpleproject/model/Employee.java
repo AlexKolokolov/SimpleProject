@@ -13,9 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.kolokolov.simpleproject.hstore.HstoreUserType;
+
 
 @Entity
 @Table(name="employee")
+@TypeDef(name="hstore", typeClass=HstoreUserType.class)
 public class Employee {
     
 	@Id
@@ -33,13 +37,9 @@ public class Employee {
 	@JoinColumn(name="department_id")
     private Department department;
 	
-//	@Type(type="hstore")
-//	@Column(columnDefinition="hstore")
-//	private Map<String, String> contacts;
-	
-//	{
-//		contacts = new LinkedHashMap<>();
-//	}
+	@Type(type="hstore")
+	@Column(name="contacts")
+	private Map<String, String> contacts = new LinkedHashMap<>();
     
     public Employee() {}
     
@@ -53,6 +53,10 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
+    }
+    
+    public void addContact(String key, String value) {
+    	contacts.put(key, value);
     }
 
     public int getId() {
@@ -87,11 +91,15 @@ public class Employee {
         this.department = department;
     }
     
-//    public void addContact(String key, String value) {
-//    	contacts.put(key, value);
-//    }
+    public Map<String, String> getContacts() {
+		return contacts;
+	}
 
-    @Override
+	public void setContacts(Map<String, String> contacts) {
+		this.contacts = contacts;
+	}
+
+	@Override
     public String toString() {
         return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", Department: " + department.getName() + "]";
     }

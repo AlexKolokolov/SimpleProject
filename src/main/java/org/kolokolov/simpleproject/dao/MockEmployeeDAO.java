@@ -54,5 +54,9 @@ public class MockEmployeeDAO implements EmployeeDAO {
     public Employee getEmployeesById(String id) {
         return employees.get(id);
     }
+    @Override
+    public void persistEmployee(Employee employee) {
+    	// TODO Auto-generated method stub	
+    }
 
 }

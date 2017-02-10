@@ -8,15 +8,44 @@
 	<h:head>
 		<title>Employee details</title>
 		<f:metadata>
-			<f:viewParam name="employee" var="employee" />
+			<f:viewParam name="employee" var="employee" value="#{contactDataController.employee" />
 		</f:metadata>
 	</h:head>
 	<h:body>
 		<h1>Employee details</h1>
 		<fieldset>
 			<legend>Employee</legend>
-			<p>#{employee}</p>
+			<h:outputText value="ID: #{employee.id}" /><br/>
+			<h:outputText value="First name: #{employee.firstName}" /><br/>
+			<h:outputText value="Last name: #{employee.lastName}" /><br/>
 		</fieldset>
+		<fieldset>
+			<legend>Contacts</legend>
+			<h:panelGroup id="contacts">
+				<ui:repeat value="#{employee.contacts}" var="contact">
+					<h:outputText value="#{contact}" />
+					<br/>
+				</ui:repeat>
+			</h:panelGroup>
+		</fieldset>
+		<fieldset>
+			<legend>Add new contact</legend>
+			<h:form>
+				<h:inputText id="contactType" value="#{contactDataController.contactType}"
+					a:placeholder="Enter contact type" />
+				<br />
+				<br />
+				<h:inputText id="contactValue" value="#{contactDataController.contactValue}"
+					a:placeholder="Enter contact value" />
+				<br />
+				<br />
+				<h:commandButton value="Add contact" type="submit" action="#{contactDataController.addNewContact}">
+					<f:ajax execute="@form" render="addContactMessage contacts" />
+				</h:commandButton>
+			</h:form>
+			<h:outputText id="addContactMessage" value="#{contactDataControllerr.message}" />
+		</fieldset>
+		<br/>
 		<h:button value="Back" outcome="index" />
 	</h:body>
 </html>
