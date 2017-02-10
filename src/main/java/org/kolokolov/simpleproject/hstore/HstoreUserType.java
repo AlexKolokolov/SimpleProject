@@ -17,7 +17,7 @@ public class HstoreUserType implements UserType {
 
 	@Override
 	public int[] sqlTypes() {
-		return new int[] {Types.INTEGER};
+		return new int[] {Types.VARCHAR};
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class HstoreUserType implements UserType {
 	public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
 			throws HibernateException, SQLException {
 		String s = HstoreHelper.toString((Map) value);
-        st.setObject(index, session, Types.OTHER);
+        st.setObject(index, s, Types.OTHER);
 
 	}
 
