@@ -22,6 +22,8 @@ public class EmployeeDataController {
     
     @Autowired
     private EmployeeService employeeService;
+    
+    private String id;
 
     public List<Employee> getEmployees() {
         logger.debug("getEmployees method runs");
@@ -32,4 +34,18 @@ public class EmployeeDataController {
         }
         return employees;
     }
+    
+    public Employee getEmployee() {
+    	return employeeService.getAllEmployeeById(id);
+    }
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+    
+    
 }

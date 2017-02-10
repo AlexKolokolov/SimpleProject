@@ -1,5 +1,8 @@
 package org.kolokolov.simpleproject.model;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="employee")
@@ -27,6 +32,14 @@ public class Employee {
 	@ManyToOne
 	@JoinColumn(name="department_id")
     private Department department;
+	
+//	@Type(type="hstore")
+//	@Column(columnDefinition="hstore")
+//	private Map<String, String> contacts;
+	
+//	{
+//		contacts = new LinkedHashMap<>();
+//	}
     
     public Employee() {}
     
@@ -73,6 +86,10 @@ public class Employee {
     public void setDepartment(Department department) {
         this.department = department;
     }
+    
+//    public void addContact(String key, String value) {
+//    	contacts.put(key, value);
+//    }
 
     @Override
     public String toString() {

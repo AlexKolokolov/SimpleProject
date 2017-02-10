@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<title>Employee details</title>
+		<f:metadata>
+			<f:viewParam name="id" value="#{employeeDataController.id}" />
+		</f:metadata>
+	</h:head>
+	<h:body>
+		<h1>Employee details</h1>
+		<fieldset>
+			<legend>Employee</legend>
+			<p>#{employeeDataController.employee}</p>
+		</fieldset>
+		<h:button value="Back" outcome="index" />
+	</h:body>
+</html>
