@@ -36,7 +36,7 @@ public class EmployeeDataController {
     }
     
     public Employee getEmployee() {
-    	return employeeService.getAllEmployeeById(id);
+    	return employeeService.getEmployeeById(id);
     }
 
 	public String getId() {

@@ -15,4 +15,6 @@ public interface EmployeeDAO {
     Employee getEmployeesById(String id);
     
 	void persistEmployee(Employee employee);
+	
+	void addNewContact(String employeeId, String contactType, String contactValue);
 }

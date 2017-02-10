@@ -32,12 +32,16 @@ public class EmployeeService {
 
     }
 
-    public Employee getAllEmployeeById(String id) {
+    public Employee getEmployeeById(String id) {
         return employeeDAO.getEmployeesById(id);
     }
 
 	public void persistEmployee(Employee employee) {
 		employeeDAO.persistEmployee(employee);
 		
+	}
+
+	public void addNewContactToEmploye(String employeeId, String contactType, String contactValue) {
+		employeeDAO.addNewContact(employeeId, contactType, contactValue);
 	}
 }

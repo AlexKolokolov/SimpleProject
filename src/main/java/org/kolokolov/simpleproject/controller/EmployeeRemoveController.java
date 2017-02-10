@@ -46,7 +46,7 @@ public class EmployeeRemoveController {
     }
     
     public void removeEmployee() {
-    	employeeToRemove = employeeService.getAllEmployeeById(id);
+    	employeeToRemove = employeeService.getEmployeeById(id);
     	employeeService.removeEmployee(id);
     }
 }
