@@ -17,7 +17,7 @@ public class HstoreUserType implements UserType {
 
 	@Override
 	public int[] sqlTypes() {
-		return new int[] {Types.VARCHAR};
+		return new int[] {Types.CLOB};
 	}
 
 	@Override
