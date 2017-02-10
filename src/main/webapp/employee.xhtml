@@ -22,10 +22,16 @@
 		<fieldset>
 			<legend>Contacts</legend>
 			<h:panelGroup id="contacts">
-				<ui:repeat value="#{contactDataController.employee.contacts}" var="contact">
-					<h:outputText value="#{contact}" />
-					<br/>
-				</ui:repeat>
+				<h:dataTable value="#{contactDataController.employee.contacts.entrySet().toArray()}" var="entry">
+					<h:column>
+						<f:facet name="header">Contact type</f:facet>
+						#{entry.key}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Contact</f:facet>
+						#{entry.value}
+					</h:column>
+				</h:dataTable>
 			</h:panelGroup>
 		</fieldset>
 		<fieldset>
