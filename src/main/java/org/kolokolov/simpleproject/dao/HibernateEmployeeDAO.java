@@ -60,13 +60,6 @@ public class HibernateEmployeeDAO implements EmployeeDAO {
 	
 	@Override
 	@Transactional
-	public void persistEmployee(Employee employee) {
-		Session session = sessionFactory.getCurrentSession();
-		session.persist(employee);
-	}
-	
-	@Override
-	@Transactional
 	public void addNewContact(String employeeId, String contactType, String contactValue) {
 		Session session = sessionFactory.getCurrentSession();
 		Employee employee = session.get(Employee.class, Integer.parseInt(employeeId));

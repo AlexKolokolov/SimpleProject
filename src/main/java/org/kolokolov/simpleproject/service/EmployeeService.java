@@ -36,11 +36,6 @@ public class EmployeeService {
         return employeeDAO.getEmployeesById(id);
     }
 
-	public void persistEmployee(Employee employee) {
-		employeeDAO.persistEmployee(employee);
-		
-	}
-
 	public void addNewContactToEmploye(String employeeId, String contactType, String contactValue) {
 		employeeDAO.addNewContact(employeeId, contactType, contactValue);
 	}
