@@ -8,14 +8,14 @@
 	<h:head>
 		<title>Employee details</title>
 		<f:metadata>
-			<f:viewParam name="id" value="#{employeeDataController.id}" />
+			<f:viewParam name="employee" var="employee" />
 		</f:metadata>
 	</h:head>
 	<h:body>
 		<h1>Employee details</h1>
 		<fieldset>
 			<legend>Employee</legend>
-			<p>#{employeeDataController.employee}</p>
+			<p>#{employee}</p>
 		</fieldset>
 		<h:button value="Back" outcome="index" />
 	</h:body>
