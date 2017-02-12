@@ -1,6 +1,9 @@
 package org.kolokolov.simpleproject.controller;
 
+import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.service.EmployeeService;
@@ -13,8 +16,10 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 public class EmployeeRemoveController {
     
-    private String id;
-    
+    private Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+
+    private String id = params.get("employeeId");
+       
     private Employee employeeToRemove;
     
     @Autowired
@@ -41,7 +46,6 @@ public class EmployeeRemoveController {
         } else {
             msg = String.format("There is no employee with id %s", id);
         }
-   
         return msg;
     }
     

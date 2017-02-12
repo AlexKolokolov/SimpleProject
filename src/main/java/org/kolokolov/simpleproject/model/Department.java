@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +20,8 @@ public class Department {
 	
 	@Id
 	@Column(name="department_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dep_seq")
+	@SequenceGenerator(name="dep_seq", sequenceName="DEP_SEQ", allocationSize=1)
     private int id;
 	
 	@Column(name="name")

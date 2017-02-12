@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class EmployeeService {
     
     @Autowired
-    @Qualifier("hibernateEmployeeDAO")
+    @Qualifier("oracleHibernateEmployeeDAO")
     private EmployeeDAO employeeDAO;
     
     public List<Employee> getAllEmployees() {

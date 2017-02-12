@@ -10,12 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.kolokolov.simpleproject.hstore.HstoreUserType;
-
 
 @Entity
 @Table(name="employee")
@@ -24,7 +24,8 @@ public class Employee {
     
 	@Id
 	@Column(name="employee_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="emp_seq")
+    @SequenceGenerator(name="emp_seq", sequenceName="EMP_SEQ", allocationSize=1)
     private int id;
 	
 	@Column(name="first_name")

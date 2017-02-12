@@ -6,9 +6,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-<h:head>
-	<title>Employee manager</title>
-</h:head>
+	<h:head>
+		<title>Employee manager</title>
+	</h:head>
 	<h:body>
 		<h1>Employee manager</h1>
 		<fieldset>
@@ -17,75 +17,71 @@
 				<h:dataTable value="#{employeeDataController.employees}" var="employee">
 					<h:column>
 						<f:facet name="header">ID</f:facet>
-						#{employee.id}
-					</h:column>
+							#{employee.id}
+						</h:column>
 					<h:column>
 						<f:facet name="header">First name</f:facet>
-						#{employee.firstName}
-					</h:column>
+							#{employee.firstName}
+						</h:column>
 					<h:column>
 						<f:facet name="header">Last name</f:facet>
-						#{employee.lastName}
-					</h:column>
+							#{employee.lastName}
+						</h:column>
 					<h:column>
 						<f:facet name="header">Department</f:facet>
-						#{employee.department.name}
-					</h:column>
+							#{employee.department.name}
+						</h:column>
 					<h:column>
 						<h:button value="Details" outcome="employee">
 							<f:param name="employeeId" value="#{employee.id}" />
 						</h:button>
 					</h:column>
+					<h:column>
+						<h:commandButton value="Remove" type="submit" action="#{employeeRemoveController.removeEmployee}">
+							<f:param name="employeeId" value="#{employee.id}" />
+							<f:ajax execute="@form" render="removeEmployeeMessage allEmployees emptyDeps" />
+						</h:commandButton>
+					</h:column>
 				</h:dataTable>
 			</h:panelGroup>
+			<h:outputText id="removeEmployeeMessage"
+				value="#{employeeRemoveController.message}" />
 		</fieldset>
-	
+		<br/>
 		<fieldset>
 			<legend>Add new employee</legend>
 			<h:form>
-				<h:inputText id="firstName" value="#{newEmployeeController.firstName}"
+				<h:inputText id="firstName"
+					value="#{newEmployeeController.firstName}"
 					a:placeholder="Enter first name" />
-				<br />
-				<br />
+				<br/>
+				<br/>
 				<h:inputText id="lastName" value="#{newEmployeeController.lastName}"
 					a:placeholder="Enter last name" />
-				<br />
-				<br />
-				
+				<br/>
+				<br/>
 				<h:selectOneMenu value="#{newEmployeeController.departmentId}">
 					<f:selectItems value="#{newEmployeeController.departments}" />
 				</h:selectOneMenu>
-				<br />
-				<br />
-				
-				<h:commandButton value="Add employee" type="submit" action="#{newEmployeeController.addNewEmployee}">
-					<f:ajax execute="@form" render="addEmployeeMessage allEmployees emptyDeps" />
+				<br/>
+				<br/>
+				<h:commandButton value="Add employee" type="submit"
+					action="#{newEmployeeController.addNewEmployee}">
+					<f:ajax execute="@form"
+						render="addEmployeeMessage allEmployees emptyDeps" />
 				</h:commandButton>
 			</h:form>
-			<h:outputText id="addEmployeeMessage" value="#{newEmployeeController.message}" />
+			<h:outputText id="addEmployeeMessage"
+				value="#{newEmployeeController.message}" />
 		</fieldset>
-		
-		<fieldset>
-			<legend>Remove employee</legend>
-			<h:form>
-				<h:inputText id="id"
-					value="#{employeeRemoveController.id}"
-					a:placeholder="Enter employee ID" />
-				<br />
-				<br />
-				<h:commandButton value="Remove employee" type="submit" action="#{employeeRemoveController.removeEmployee}">
-					<f:ajax execute="@form" render="removeEmployeeMessage allEmployees emptyDeps" />
-				</h:commandButton>
-			</h:form>
-			<h:outputText id="removeEmployeeMessage" value="#{employeeRemoveController.message}" />
-		</fieldset>
-		
+		<br/>
 		<fieldset>
 			<legend>Empty departments</legend>
 			<h:panelGroup id="emptyDeps">
-				<ui:repeat value="#{departmentDataController.emptyDepartments}" var="emptyDepartment">
+				<ui:repeat value="#{departmentDataController.emptyDepartments}"
+					var="emptyDepartment">
 					<h:outputText value="#{emptyDepartment}" />
-					<br />
+					<br/>
 				</ui:repeat>
 			</h:panelGroup>
 		</fieldset>
