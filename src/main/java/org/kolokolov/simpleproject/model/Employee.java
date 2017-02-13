@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +37,8 @@ public class Employee {
     private String lastName;
 	
 	@Column(name="gender")
-	private int gender;
+	@Enumerated(EnumType.ORDINAL)
+	private Gender gender;
 	
 	@Column(name="age")
 	private int age;
@@ -62,7 +65,7 @@ public class Employee {
         this.department = department;
     }
     
-    public Employee(String firstName, String lastName, int gender, int age, Department department) {
+    public Employee(String firstName, String lastName, Gender gender, int age, Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -114,11 +117,11 @@ public class Employee {
 		this.contacts = contacts;
 	}
 	
-	public int getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(int gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -132,7 +135,6 @@ public class Employee {
 
 	@Override
     public String toString() {
-		String sGender = gender == 1 ? "Male" : "Female";
-        return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", age: " + age + ", gender: " + sGender + ", Department: " + department.getName() + "]";
+        return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", age: " + age + ", gender: " + gender + ", Department: " + department.getName() + "]";
     }
 }

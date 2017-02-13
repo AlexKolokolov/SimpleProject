@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.Gender;
 import org.kolokolov.simpleproject.service.DepartmentService;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class NewEmployeeController {
     private String lastName;
     
     private String age;
-    private String gender = "1";
+    private String gender = "MALE";
     
     private String departmentId;
     
@@ -69,7 +70,7 @@ public class NewEmployeeController {
     public void addNewEmployee() {
     	Department department = departmentService.getDepartmentById(departmentId);
     	logger.debug("department: " + department);
-    	employee = new Employee(firstName, lastName, Integer.parseInt(gender), Integer.parseInt(age), department);
+    	employee = new Employee(firstName, lastName, Enum.valueOf(Gender.class, gender), Integer.parseInt(age), department);
         employeeService.addNewEmployee(employee);
     }
     

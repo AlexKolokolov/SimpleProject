@@ -33,7 +33,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
             <value>
                 hibernate.dialect=${hibernate.dialect}
                 hibernate.show_sql=true
-                hibernate.hbm2ddl.auto=create
+                hibernate.hbm2ddl.auto=update
             </value>
         </property>
     </bean>
