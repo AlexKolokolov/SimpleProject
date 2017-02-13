@@ -46,9 +46,10 @@ public class HibernateEmployeeDAO implements EmployeeDAO {
 
 	@Override
 	@Transactional
-	public void removeEmployee(String id) {
+	public Integer removeEmployee(String id) {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("DELETE Employee WHERE id = :id").setParameter("id", Integer.parseInt(id)).executeUpdate();
+		return 0;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ public interface EmployeeDAO {
     
     void addNewEmployee(Employee employee);
     
-    void removeEmployee(String id);
+    Integer removeEmployee(String id);
     
     Employee getEmployeesById(String id);
 	

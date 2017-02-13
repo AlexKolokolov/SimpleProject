@@ -45,10 +45,11 @@ public class MockEmployeeDAO implements EmployeeDAO {
         employees.put(String.valueOf(employee.getId()), employee);
     }
     
-    public void removeEmployee(String id) {
+    public Integer removeEmployee(String id) {
     	Employee employee = employees.get(id);
     	employee.getDepartment().removeEmployee(employee);
         employees.remove(id);
+        return 0;
     }
     
     public Employee getEmployeesById(String id) {

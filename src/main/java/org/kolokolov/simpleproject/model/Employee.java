@@ -33,6 +33,12 @@ public class Employee {
 	
 	@Column(name="last_name")
     private String lastName;
+	
+	@Column(name="gender")
+	private int gender;
+	
+	@Column(name="age")
+	private int age;
     
 	@ManyToOne
 	@JoinColumn(name="department_id")
@@ -53,6 +59,14 @@ public class Employee {
     public Employee(String firstName, String lastName, Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.department = department;
+    }
+    
+    public Employee(String firstName, String lastName, int gender, int age, Department department) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
         this.department = department;
     }
     
@@ -99,9 +113,26 @@ public class Employee {
 	public void setContacts(Map<String, String> contacts) {
 		this.contacts = contacts;
 	}
+	
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 
 	@Override
     public String toString() {
-        return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", Department: " + department.getName() + "]";
+		String sGender = gender == 1 ? "Male" : "Female";
+        return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", age: " + age + ", gender: " + sGender + ", Department: " + department.getName() + "]";
     }
 }

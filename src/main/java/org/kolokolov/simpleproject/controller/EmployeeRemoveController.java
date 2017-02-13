@@ -17,6 +17,8 @@ import org.springframework.web.context.annotation.RequestScope;
 public class EmployeeRemoveController {
     
     private Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    
+    Integer errorCode;
 
     private String id = params.get("employeeId");
        
@@ -38,19 +40,28 @@ public class EmployeeRemoveController {
     }
     
     public String getMessage() {
+    	
         String msg;
-        if (id == null) {
+        if (errorCode == null) {
             msg = "";
-        } else if (employeeToRemove != null) { 
-        	msg = String.format("Employee %s has been removed", employeeToRemove);
         } else {
-            msg = String.format("There is no employee with id %s", id);
+        	employeeToRemove = employeeService.getEmployeeById(id);
+        	switch (errorCode) {
+			case 0:
+				msg = String.format("Employee %s has been removed (Error code: %d)", employeeToRemove, errorCode);
+				break;
+			case 1:
+				msg = String.format("Employee %s cannot be removed because he is a chirman (Error code: %d)", employeeToRemove, errorCode);
+				break;
+			default:
+				msg = "";
+				break;
+			}
         }
         return msg;
     }
     
     public void removeEmployee() {
-    	employeeToRemove = employeeService.getEmployeeById(id);
-    	employeeService.removeEmployee(id);
+    	errorCode = employeeService.removeEmployee(id);
     }
 }

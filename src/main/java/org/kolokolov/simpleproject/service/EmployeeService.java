@@ -27,8 +27,8 @@ public class EmployeeService {
         employeeDAO.addNewEmployee(employee);
     }
 
-    public void removeEmployee(String id) {
-        employeeDAO.removeEmployee(id);
+    public Integer removeEmployee(String id) {
+        return employeeDAO.removeEmployee(id);
 
     }
 

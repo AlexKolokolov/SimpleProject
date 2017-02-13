@@ -46,9 +46,12 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 
 	@Override
 	@Transactional
-	public void removeEmployee(String id) {
+	public Integer removeEmployee(String id) {
 		Session session = sessionFactory.getCurrentSession();
-		session.createSQLQuery("BEGIN emp_manage.del_emp(:id); END;").setParameter("id", Integer.parseInt(id)).executeUpdate();
+		logger.debug("removeEmployee runs with parameter: id = " + id);
+		Integer result = (Integer) session.createSQLQuery("BEGIN emp_manage.del_emp(:id); END;").setParameter("id", Integer.parseInt(id)).addEntity(Integer.class).getFirstResult();
+		logger.debug("removeEmployee returned: " + result);
+		return result;
 	}
 
 	@Override

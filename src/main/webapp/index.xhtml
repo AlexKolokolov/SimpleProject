@@ -60,6 +60,16 @@
 					a:placeholder="Enter last name" />
 				<br/>
 				<br/>
+				<h:selectOneRadio id="gender" value="#{newEmployeeController.gender}">
+					<f:selectItem itemValue="1" itemLabel="Male" />
+					<f:selectItem itemValue="0" itemLabel="Female" />
+				</h:selectOneRadio>
+				<br/>
+				<h:selectOneMenu value="#{newEmployeeController.age}">
+					<f:selectItems value="#{newEmployeeController.ages}" />
+				</h:selectOneMenu>
+				<br/>
+				<br/>
 				<h:selectOneMenu value="#{newEmployeeController.departmentId}">
 					<f:selectItems value="#{newEmployeeController.departments}" />
 				</h:selectOneMenu>
