@@ -48,7 +48,7 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	@Transactional
 	public void removeEmployee(String id) {
 		Session session = sessionFactory.getCurrentSession();
-		session.createSQLQuery("BEGIN emp_manage.del_emp(:id) END").setParameter("id", Integer.parseInt(id)).executeUpdate();
+		session.createSQLQuery("BEGIN emp_manage.del_emp(:id); END;").setParameter("id", Integer.parseInt(id)).executeUpdate();
 	}
 
 	@Override
