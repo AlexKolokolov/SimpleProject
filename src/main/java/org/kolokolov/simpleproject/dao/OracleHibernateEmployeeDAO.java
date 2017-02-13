@@ -2,13 +2,8 @@ package org.kolokolov.simpleproject.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
-import javax.persistence.StoredProcedureQuery;
 import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,10 +27,6 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
-	
-//	@PersistenceContext
-//	@Qualifier("entityManagerFactory")
-//	private EntityManager entityManager;
 	
 	public OracleHibernateEmployeeDAO() {
 		logger.debug("HibernateEmployeeDAO instantiated");
@@ -62,36 +53,9 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 		session.save(employee);
 	}
 	
-//	@Override
-//	@Transactional
-//	public Integer removeEmployee(String id) {
-//		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("emp_manage.del_emp")
-//		.registerStoredProcedureParameter("p_id", Integer.class, ParameterMode.IN)
-//		.registerStoredProcedureParameter("p_error_code", Integer.class, ParameterMode.OUT)
-//		.setParameter("p_id", Integer.parseInt(id));
-//		query.execute();
-//		Integer result = (Integer) query.getOutputParameterValue("p_error_code"); 
-//		return result;
-//	}
-
-//	@Override
-//	@Transactional
-//	public Integer removeEmployee(String id) {
-//		Session session = sessionFactory.getCurrentSession();
-//		logger.debug("removeEmployee runs with parameter: id = " + id);
-//		Integer result = 0; 
-//		result = (int) session.createSQLQuery("BEGIN emp_manage.del_emp(:id, :errorCode); END;")
-//				.setParameter("id", Integer.parseInt(id))
-//				.setParameter("errorCode", result)
-//				.getResultList().get(0);
-//		logger.debug("removeEmployee returned: " + result);
-//		return result;
-//	}
-	
 	@Override
 	public Integer removeEmployee(String id) {
 		logger.debug("removeEmployee runs with parameter: id = " + id);
-
 		try (Connection connection = dataSource.getConnection();
 			CallableStatement statement = connection.prepareCall("BEGIN emp_manage.del_emp(:id, :errorCode); END;")) {
 			statement.setInt("id", Integer.parseInt(id));

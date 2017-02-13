@@ -61,7 +61,7 @@ public class NewEmployeeController {
         if (employee == null) {
             msg = "";
         } else {
-            msg = String.format("New employee %s has been added", employee);
+            msg = String.format("New employee %s %s has been added", employee.getFirstName(), employee.getLastName());
         }
         return msg;
     }
