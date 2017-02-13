@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ public class HibernateEmployeeDAO implements EmployeeDAO {
 	private static Logger logger = LogManager.getLogger();
 	
 	@Autowired
+	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 	
 	public HibernateEmployeeDAO() {

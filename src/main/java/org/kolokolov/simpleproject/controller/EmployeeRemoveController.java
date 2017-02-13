@@ -45,13 +45,18 @@ public class EmployeeRemoveController {
         if (errorCode == null) {
             msg = "";
         } else {
-        	employeeToRemove = employeeService.getEmployeeById(id);
         	switch (errorCode) {
 			case 0:
 				msg = String.format("Employee %s has been removed (Error code: %d)", employeeToRemove, errorCode);
 				break;
 			case 1:
 				msg = String.format("Employee %s cannot be removed because he is a chirman (Error code: %d)", employeeToRemove, errorCode);
+				break;
+			case 2:
+				msg = String.format("Female employee %s cannot be removed (Error code: %d)", employeeToRemove, errorCode);
+				break;
+			case 3:
+				msg = String.format("Employee %s cannot be removed because of age (Error code: %d)", employeeToRemove, errorCode);
 				break;
 			default:
 				msg = "";
@@ -62,6 +67,7 @@ public class EmployeeRemoveController {
     }
     
     public void removeEmployee() {
+    	employeeToRemove = employeeService.getEmployeeById(id);
     	errorCode = employeeService.removeEmployee(id);
     }
 }
