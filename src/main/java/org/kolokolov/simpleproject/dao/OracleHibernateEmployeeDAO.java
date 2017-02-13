@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
+import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	
 	private static Logger logger = LogManager.getLogger();
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	@Autowired
 	@Qualifier("sessionFactory")
@@ -87,11 +91,9 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	@Override
 	public Integer removeEmployee(String id) {
 		logger.debug("removeEmployee runs with parameter: id = " + id);
-		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-		String user = "test_user";
-		String password = "q1";
-		try (Connection con = DriverManager.getConnection(url, user, password);
-			CallableStatement statement = con.prepareCall("BEGIN emp_manage.del_emp(:id, :errorCode); END;")) {
+
+		try (Connection connection = dataSource.getConnection();
+			CallableStatement statement = connection.prepareCall("BEGIN emp_manage.del_emp(:id, :errorCode); END;")) {
 			statement.setInt("id", Integer.parseInt(id));
 			statement.registerOutParameter("errorCode", java.sql.Types.INTEGER);
 			statement.executeUpdate();
@@ -122,5 +124,9 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 }
