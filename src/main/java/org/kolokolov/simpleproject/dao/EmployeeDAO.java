@@ -17,4 +17,6 @@ public interface EmployeeDAO {
 	void addNewContact(String employeeId, String contactType, String contactValue);
 	
 	void addFileToEmployee(String id, byte[] bytes);
+	
+	byte[] getFile(String id);
 }

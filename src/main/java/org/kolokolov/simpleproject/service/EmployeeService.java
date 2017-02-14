@@ -43,4 +43,8 @@ public class EmployeeService {
 	public void addFileToEmployee(String employeeId, byte[] bytes) {
 		employeeDAO.addFileToEmployee(employeeId, bytes);
 	}
+
+	public byte[] getResume(String id) {
+		return employeeDAO.getFile(id);
+	}
 }

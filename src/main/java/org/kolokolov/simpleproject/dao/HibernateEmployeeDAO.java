@@ -78,6 +78,14 @@ public class HibernateEmployeeDAO implements EmployeeDAO {
 		employee.setFile(bytes);
 		session.persist(employee);
 	}
+	
+	@Override
+	@Transactional
+	public byte[] getFile(String employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+		Employee employee = session.get(Employee.class, Integer.parseInt(employeeId));
+		return employee.getFile();
+	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

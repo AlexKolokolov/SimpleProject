@@ -64,6 +64,9 @@
 				<h:commandButton value="Upload" action="#{newFileUploader.save}">
 					<f:param name="employeeId" value="#{contactDataController.employeeId}" />
 				</h:commandButton>
+				<h:commandButton id="download" value="Download" actionListener="#{fileDownloader.download}">
+					<f:param name="employeeId" value="#{contactDataController.employeeId}" />
+                </h:commandButton>
 			</h:form>
 		</fieldset>
 		<br/>
