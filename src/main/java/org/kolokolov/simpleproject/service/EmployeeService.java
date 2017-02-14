@@ -39,4 +39,8 @@ public class EmployeeService {
 	public void addNewContactToEmploye(String employeeId, String contactType, String contactValue) {
 		employeeDAO.addNewContact(employeeId, contactType, contactValue);
 	}
+
+	public void addFileToEmployee(String employeeId, byte[] bytes) {
+		employeeDAO.addFileToEmployee(employeeId, bytes);
+	}
 }

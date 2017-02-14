@@ -16,7 +16,7 @@ public class DepartmentService {
     private static Logger logger = LogManager.getLogger();
 
     @Autowired
-    @Qualifier("oracleHibernateDepartmentDAO")
+    @Qualifier("hibernateDepartmentDAO")
     private DepartmentDAO departmentDAO;
     
     public DepartmentService() {

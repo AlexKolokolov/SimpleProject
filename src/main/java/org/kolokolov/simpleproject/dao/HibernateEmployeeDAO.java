@@ -69,6 +69,15 @@ public class HibernateEmployeeDAO implements EmployeeDAO {
 		employee.addContact(contactType, contactValue);
 		session.persist(employee);
 	}
+	
+	@Override
+	@Transactional
+	public void addFileToEmployee(String employeeId, byte[] bytes) {
+		Session session = sessionFactory.getCurrentSession();
+		Employee employee = session.get(Employee.class, Integer.parseInt(employeeId));
+		employee.setFile(bytes);
+		session.persist(employee);
+	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

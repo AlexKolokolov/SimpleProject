@@ -42,18 +42,29 @@
 			<h:form>
 				<h:inputText id="contactType" value="#{newContactController.contactType}"
 					a:placeholder="Enter contact type" />
-				<br />
-				<br />
+				<br/>
+				<br/>
 				<h:inputText id="contactValue" value="#{newContactController.contactValue}"
 					a:placeholder="Enter contact value" />
-				<br />
-				<br />
+				<br/>
+				<br/>
 				<h:commandButton value="Add contact" type="submit" action="#{newContactController.addNewContact}">
 					<f:param name="employeeId" value="#{contactDataController.employeeId}" />
 					<f:ajax execute="@form" render="addContactMessage contacts" />
 				</h:commandButton>
 			</h:form>
 			<h:outputText id="addContactMessage" value="#{newContactController.message}" />
+		</fieldset>
+		<fieldset>
+			<legend>Add resume file</legend>
+			<h:form enctype="multipart/form-data">
+				<h:inputFile value="#{newFileUploader.uploadedFile}" />
+				<br/>
+				<br/>
+				<h:commandButton value="Upload" action="#{newFileUploader.save}">
+					<f:param name="employeeId" value="#{contactDataController.employeeId}" />
+				</h:commandButton>
+			</h:form>
 		</fieldset>
 		<br/>
 		<h:button value="Back" outcome="index" />

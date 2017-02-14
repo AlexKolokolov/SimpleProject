@@ -61,4 +61,9 @@ public class MockEmployeeDAO implements EmployeeDAO {
     	// TODO Auto-generated method stub
     	
     }
+    
+    @Override
+    public void addFileToEmployee(String id, byte[] bytes) {
+    	// TODO Auto-generated method stub	
+    }
 }

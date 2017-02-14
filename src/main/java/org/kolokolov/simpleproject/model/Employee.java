@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -50,6 +51,10 @@ public class Employee {
 	@Type(type="hstore")
 	@Column(name="contacts")
 	private Map<String, String> contacts = new LinkedHashMap<>();
+	
+	@Lob
+	@Column(name="resume")
+	private byte[] file;
     
     public Employee() {}
     
@@ -76,6 +81,14 @@ public class Employee {
     public void addContact(String key, String value) {
     	contacts.put(key, value);
     }
+    
+    public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
 
     public int getId() {
         return id;
