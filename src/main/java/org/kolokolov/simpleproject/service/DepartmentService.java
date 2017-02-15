@@ -16,7 +16,7 @@ public class DepartmentService {
     private static Logger logger = LogManager.getLogger();
 
     @Autowired
-    @Qualifier("hibernateDepartmentDAO")
+    @Qualifier("oracleHibernateDepartmentDAO")
     private DepartmentDAO departmentDAO;
     
     public DepartmentService() {
@@ -32,7 +32,7 @@ public class DepartmentService {
     }
 
 	public Department getDepartmentById(String departmentId) {
-		return departmentDAO.getDepartmentById(departmentId);
+		return departmentDAO.getDepartmentById(Integer.parseInt(departmentId));
 	}
 	
 	public List<Department> getEmptyDepartments() {

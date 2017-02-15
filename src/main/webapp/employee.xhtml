@@ -8,24 +8,24 @@
 	<h:head>
 		<title>Employee details</title>
 		<f:metadata>
-			<f:viewParam name="employeeId" value="#{contactDataController.employeeId}" var="employeeId" />
+			<f:viewParam name="employeeId" value="#{employeeDataController.employeeId}" />
 		</f:metadata>
 	</h:head>
 	<h:body>
 		<h1>Employee details</h1>
 		<fieldset>
 			<legend>Employee</legend>
-			<p>ID: #{contactDataController.employee.id}</p>
-			<p>First name: #{contactDataController.employee.firstName}</p>
-			<p>Last name: #{contactDataController.employee.lastName}</p>
-			<p>Age: #{contactDataController.employee.age}</p>
-			<p>Gender: #{contactDataController.employee.gender}</p>
-			<p>Department: #{contactDataController.employee.department.name}</p>
+			<p>ID: #{employeeDataController.employee.id}</p>
+			<p>First name: #{employeeDataController.employee.firstName}</p>
+			<p>Last name: #{employeeDataController.employee.lastName}</p>
+			<p>Age: #{employeeDataController.employee.age}</p>
+			<p>Gender: #{employeeDataController.employee.gender}</p>
+			<p>Department: #{employeeDataController.employee.department.name}</p>
 		</fieldset>
 		<fieldset>
 			<legend>Contacts</legend>
 			<h:panelGroup id="contacts">
-				<h:dataTable value="#{contactDataController.employee.contacts.entrySet().toArray()}" var="entry">
+				<h:dataTable value="#{employeeDataController.contacts.entrySet().toArray()}" var="entry">
 					<h:column>
 						<f:facet name="header">Contact type</f:facet>
 						#{entry.key}
@@ -49,24 +49,33 @@
 				<br/>
 				<br/>
 				<h:commandButton value="Add contact" type="submit" action="#{newContactController.addNewContact}">
-					<f:param name="employeeId" value="#{contactDataController.employeeId}" />
+					<f:param name="employeeId" value="#{employeeDataController.employeeId}" />
 					<f:ajax execute="@form" render="addContactMessage contacts" />
 				</h:commandButton>
 			</h:form>
 			<h:outputText id="addContactMessage" value="#{newContactController.message}" />
 		</fieldset>
 		<fieldset>
-			<legend>Add resume file</legend>
+			<legend>Employee files</legend>
+			<h:panelGroup id="allFiles">
+				<h:dataTable value="#{employeeDataController.employee.employeeFiles}" var="file">
+					<h:column>
+						#{file.name}
+					</h:column>
+					<h:column>
+						<h:commandButton value="Download" type="submit" action="#{fileDownloader.download}">
+							<f:param name="fileId" value="#{file.id}" />
+						</h:commandButton>
+					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
 			<h:form enctype="multipart/form-data">
 				<h:inputFile value="#{newFileUploader.uploadedFile}" />
 				<br/>
 				<br/>
-				<h:commandButton value="Upload" action="#{newFileUploader.save}">
-					<f:param name="employeeId" value="#{contactDataController.employeeId}" />
+				<h:commandButton value="Upload" type="submit" action="#{newFileUploader.save}">
+					<f:param name="employeeId" value="#{employeeDataController.employeeId}" />
 				</h:commandButton>
-				<h:commandButton id="download" value="Download" actionListener="#{fileDownloader.download}">
-					<f:param name="employeeId" value="#{contactDataController.employeeId}" />
-                </h:commandButton>
 			</h:form>
 		</fieldset>
 		<br/>

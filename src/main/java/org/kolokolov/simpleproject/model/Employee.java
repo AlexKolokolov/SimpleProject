@@ -1,21 +1,26 @@
 package org.kolokolov.simpleproject.model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.kolokolov.simpleproject.hstore.HstoreUserType;
@@ -24,6 +29,8 @@ import org.kolokolov.simpleproject.hstore.HstoreUserType;
 @Table(name="employee")
 @TypeDef(name="hstore", typeClass=HstoreUserType.class)
 public class Employee {
+	
+	private static Logger logger = LogManager.getLogger();
     
 	@Id
 	@Column(name="employee_id")
@@ -52,17 +59,10 @@ public class Employee {
 	@Column(name="contacts")
 	private Map<String, String> contacts = new LinkedHashMap<>();
 	
-	@Lob
-	@Column(name="resume")
-	private byte[] file;
-    
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="employee")
+    private List<EmployeeFile> employeeFiles = new ArrayList<>();
+
     public Employee() {}
-    
-    public Employee(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.department = new Department(0, "MockDep");
-    }
     
     public Employee(String firstName, String lastName, Department department) {
         this.firstName = firstName;
@@ -82,15 +82,20 @@ public class Employee {
     	contacts.put(key, value);
     }
     
-    public byte[] getFile() {
-		return file;
+    public void addFile(EmployeeFile file) {
+    	logger.debug("addFile method runs");
+    	employeeFiles.add(file);
+    }
+
+    public List<EmployeeFile> getEmployeeFiles() {
+		return employeeFiles;
 	}
 
-	public void setFile(byte[] file) {
-		this.file = file;
+	public void setEmployeeFiles(List<EmployeeFile> employeeFiles) {
+		this.employeeFiles = employeeFiles;
 	}
 
-    public int getId() {
+	public int getId() {
         return id;
     }
 

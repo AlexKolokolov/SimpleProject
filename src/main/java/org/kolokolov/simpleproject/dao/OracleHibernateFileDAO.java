@@ -6,45 +6,39 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.kolokolov.simpleproject.model.Department;
+import org.kolokolov.simpleproject.model.EmployeeFile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class HibernateDepartmentDAO implements DepartmentDAO {
+public class OracleHibernateFileDAO implements FileDAO {
 	
 	private static Logger logger = LogManager.getLogger();
 	
 	@Autowired
-	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
-	public HibernateDepartmentDAO() {
-		logger.debug("HibernateDepartmentDAO instantiated");
+	@Override
+	@Transactional
+	public List<EmployeeFile> getEmployeeFiles(int employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("FROM EmployeeFile WHERE EmployeeFile.employee.id = :id", EmployeeFile.class).setParameter("id", employeeId).getResultList();
 	}
 
 	@Override
 	@Transactional
-	public List<Department> getAllDepartments() {
+	public EmployeeFile getFile(int fileId) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("FROM Department", Department.class).getResultList();
+		return session.get(EmployeeFile.class, fileId);
 	}
-
+	
 	@Override
 	@Transactional
-	public List<Department> getEmptyDepartments() {
-		String query = "SELECT d.department_id, d.name FROM department d LEFT JOIN employee e ON e.department_id = d.department_id WHERE e.department_id IS NULL";
+	public void saveFile(EmployeeFile file) {
+		logger.debug("saveFile method runs");
 		Session session = sessionFactory.getCurrentSession();
-		return (List<Department>) session.createSQLQuery(query).addEntity(Department.class).getResultList();
-	}
-
-	@Override
-	@Transactional
-	public Department getDepartmentById(String id) {
-		Session session = sessionFactory.getCurrentSession();
-		return session.get(Department.class, Integer.parseInt(id));
+		session.save(file);
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

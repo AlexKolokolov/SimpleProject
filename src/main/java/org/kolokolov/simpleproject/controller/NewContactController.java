@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.context.annotation.RequestScope;
 @ManagedBean
 @RequestScope
 public class NewContactController {
+	
+	private static Logger logger = LogManager.getLogger();
 
 	@Autowired
 	private EmployeeService employeeService;
@@ -26,6 +30,8 @@ public class NewContactController {
 	private String contactValue;
 	
 	public void addNewContact() {
+		logger.debug("Params = " + params);
+		logger.debug("EmployeeId = " + employeeId);
 		employeeService.addNewContactToEmploye(employeeId, contactType, contactValue);
 	}
 	

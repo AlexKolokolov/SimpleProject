@@ -65,9 +65,9 @@ public class OracleHibernateDepartmentDAO implements DepartmentDAO {
 
 	@Override
 	@Transactional
-	public Department getDepartmentById(String id) {
+	public Department getDepartmentById(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.get(Department.class, Integer.parseInt(id));
+		return session.get(Department.class, id);
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

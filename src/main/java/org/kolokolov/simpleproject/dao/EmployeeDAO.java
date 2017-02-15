@@ -3,6 +3,7 @@ package org.kolokolov.simpleproject.dao;
 import java.util.List;
 
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.EmployeeFile;
 
 public interface EmployeeDAO {
     List<Employee> getAllEmployees();
@@ -10,13 +11,13 @@ public interface EmployeeDAO {
     
     void addNewEmployee(Employee employee);
     
-    Integer removeEmployee(String id);
+    Integer removeEmployee(int employeeId);
     
-    Employee getEmployeesById(String id);
+    Employee getEmployeesById(int employeeId);
 	
-	void addNewContact(String employeeId, String contactType, String contactValue);
+	void addNewContact(int employeeId, String contactType, String contactValue);
 	
-	void addFileToEmployee(String id, byte[] bytes);
+	void addFileToEmployee(int employeeId, EmployeeFile file);
 	
-	byte[] getFile(String id);
+	List<EmployeeFile> getFiles(int employeeId);
 }

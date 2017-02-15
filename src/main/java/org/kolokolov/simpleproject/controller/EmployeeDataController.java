@@ -1,7 +1,7 @@
 package org.kolokolov.simpleproject.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 
@@ -11,41 +11,40 @@ import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.context.annotation.RequestScope;
 
 @Controller
 @ManagedBean
-@RequestScope
 public class EmployeeDataController {
-    
-    private static Logger logger = LogManager.getLogger();
+	
+	private static Logger logger = LogManager.getLogger();
+
+    private String employeeId;
     
     @Autowired
     private EmployeeService employeeService;
     
-    private String id;
-
     public List<Employee> getEmployees() {
-        logger.debug("getEmployees method runs");
         List<Employee> employees = employeeService.getAllEmployees();
-        logger.debug("getEmployees method returns: " + employees);
-        if (employees == null) {
-        	employees = new ArrayList<>();
-        }
         return employees;
     }
     
     public Employee getEmployee() {
-    	return employeeService.getEmployeeById(id);
+    	return employeeService.getEmployeeById(employeeId);
+    }
+    
+    public Map<String,String> getContacts() {
+    	return employeeService.getEmployeeById(employeeId).getContacts();
     }
 
-	public String getId() {
-		return id;
+	public String getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
-    
-    
+
+	public void setEmployeeService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}   
 }

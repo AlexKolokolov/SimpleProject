@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.EmployeeFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -54,11 +55,11 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	}
 	
 	@Override
-	public Integer removeEmployee(String id) {
+	public Integer removeEmployee(int id) {
 		logger.debug("removeEmployee runs with parameter: id = " + id);
 		try (Connection connection = dataSource.getConnection();
 			CallableStatement statement = connection.prepareCall("BEGIN emp_manage.del_emp(:id, :errorCode); END;")) {
-			statement.setInt("id", Integer.parseInt(id));
+			statement.setInt("id", id);
 			statement.registerOutParameter("errorCode", java.sql.Types.INTEGER);
 			statement.executeUpdate();
 			Integer result = statement.getInt("errorCode");
@@ -72,35 +73,37 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 
 	@Override
 	@Transactional
-	public Employee getEmployeesById(String id) {
+	public Employee getEmployeesById(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.get(Employee.class, Integer.parseInt(id));
+		return session.get(Employee.class, id);
 	}
 	
 	@Override
 	@Transactional
-	public void addNewContact(String employeeId, String contactType, String contactValue) {
+	public void addNewContact(int employeeId, String contactType, String contactValue) {
 		Session session = sessionFactory.getCurrentSession();
-		Employee employee = session.get(Employee.class, Integer.parseInt(employeeId));
+		Employee employee = session.get(Employee.class, employeeId);
 		employee.addContact(contactType, contactValue);
 		session.persist(employee);
 	}
 	
 	@Override
 	@Transactional
-	public void addFileToEmployee(String employeeId, byte[] bytes) {
+	public void addFileToEmployee(int employeeId, EmployeeFile file) {
+		logger.debug("addFileToEmployee method runs");
 		Session session = sessionFactory.getCurrentSession();
-		Employee employee = session.get(Employee.class, Integer.parseInt(employeeId));
-		employee.setFile(bytes);
+		Employee employee = session.get(Employee.class, employeeId);
+		logger.debug("File to save: " + file.getName());
+		employee.addFile(file);
 		session.persist(employee);
 	}
 	
 	@Override
 	@Transactional
-	public byte[] getFile(String employeeId) {
+	public List<EmployeeFile> getFiles(int employeeId) {
 		Session session = sessionFactory.getCurrentSession();
-		Employee employee = session.get(Employee.class, Integer.parseInt(employeeId));
-		return employee.getFile();
+		Employee employee = session.get(Employee.class, employeeId);
+		return employee.getEmployeeFiles();
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

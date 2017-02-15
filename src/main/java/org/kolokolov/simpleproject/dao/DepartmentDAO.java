@@ -10,5 +10,5 @@ public interface DepartmentDAO {
     
     List<Department> getEmptyDepartments();
     
-    Department getDepartmentById(String id);
+    Department getDepartmentById(int id);
 }
