@@ -10,6 +10,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.EmployeeFile;
 import org.kolokolov.simpleproject.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +21,27 @@ import org.springframework.web.context.annotation.RequestScope;
 import javax.servlet.http.Part;
 
 @Controller
-@ManagedBean
+@ManagedBean(name="fileDownloader")
 @RequestScope
 public class FileDownloader {
+	
+	private static Logger logger = LogManager.getLogger();
+	
+	@Autowired
+	private FileService fileService;
 	
 	FacesContext fc = FacesContext.getCurrentInstance();
 	ExternalContext ec = fc.getExternalContext();
 	
 	private Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-
 	private String fileId = params.get("fileId");
-	
-	@Autowired
-	private FileService fileService;
-	
+
 	private Part uploadedFile;
 	
 	public void download() {
+		logger.debug("download method runs");
+		logger.debug("Params = " + params);
+		logger.debug("FileId = " + fileId);
 		EmployeeFile file = fileService.getFile(fileId);
 		byte[] data = file.getData();
 		String fileName = file.getName();

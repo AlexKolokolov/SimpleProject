@@ -41,13 +41,13 @@ public class NewFileUploader {
 		logger.debug("Params = " + params);
 		logger.debug("EmployeeId = " + employeeId);
 		logger.debug("Save method runs");
-		String fileName = uploadedFile.getName();
+		String fileName = uploadedFile.getSubmittedFileName();
 		try (InputStream inputStream = uploadedFile.getInputStream()) {
 			byte[] data = IOUtils.toByteArray(inputStream);
 			logger.debug("Getting employee for ID: " + employeeId);
 			Employee employee = employeeService.getEmployeeById(employeeId);
 			logger.debug("Saveing file to employee: " + employee);
-			fileService.saveFile(new EmployeeFile("resume", data, employee));
+			fileService.saveFile(new EmployeeFile(fileName, data, employee));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

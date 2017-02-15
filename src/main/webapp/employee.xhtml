@@ -63,9 +63,11 @@
 						#{file.name}
 					</h:column>
 					<h:column>
-						<h:commandButton value="Download" type="submit" action="#{fileDownloader.download}">
-							<f:param name="fileId" value="#{file.id}" />
-						</h:commandButton>
+						<h:form>
+							<h:commandButton value="Download" type="submit" action="#{fileDownloader.download}">
+								<f:param name="fileId" value="#{file.id}" />
+							</h:commandButton>
+						</h:form>
 					</h:column>
 				</h:dataTable>
 			</h:panelGroup>
