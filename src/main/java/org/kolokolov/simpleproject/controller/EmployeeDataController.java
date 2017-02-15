@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,6 @@ import org.springframework.stereotype.Controller;
 @ManagedBean
 public class EmployeeDataController {
 	
-	private static Logger logger = LogManager.getLogger();
-
     private String employeeId;
     
     @Autowired

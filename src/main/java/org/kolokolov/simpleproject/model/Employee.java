@@ -48,16 +48,16 @@ public class Employee {
 	@Enumerated(EnumType.ORDINAL)
 	private Gender gender;
 	
+	@Column(name="status")
+	@Enumerated(EnumType.ORDINAL)
+	private Status status;
+	
 	@Column(name="age")
 	private int age;
     
 	@ManyToOne
 	@JoinColumn(name="department_id")
     private Department department;
-	
-	@ManyToOne
-	@JoinColumn(name="status_id")
-	private Status status;
 	
 	@Type(type="hstore")
 	@Column(name="contacts")
@@ -153,6 +153,14 @@ public class Employee {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	@Override

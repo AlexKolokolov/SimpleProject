@@ -32,6 +32,10 @@
 							#{employee.department.name}
 					</h:column>
 					<h:column>
+						<f:facet name="header">Status</f:facet>
+							#{employee.status}
+					</h:column>
+					<h:column>
 						<h:button value="Details" outcome="employee">
 							<f:param name="employeeId" value="#{employee.id}" />
 						</h:button>

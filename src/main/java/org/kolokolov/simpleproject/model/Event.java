@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,8 +24,12 @@ public class Event {
     @SequenceGenerator(name="evn_seq", sequenceName="EVN_SEQ", allocationSize=1)
 	private int id;
 	
-	@Column(name="action")
-	private String action;
+	@Column(name="description")
+	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name="action_id")
+	private Action action;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="event_time")
@@ -36,12 +42,20 @@ public class Event {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
 
-	public String getAction() {
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Action getAction() {
 		return action;
 	}
 
-	public void setAction(String action) {
+	public void setAction(Action action) {
 		this.action = action;
 	}
 
