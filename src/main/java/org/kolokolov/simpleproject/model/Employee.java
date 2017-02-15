@@ -55,10 +55,6 @@ public class Employee {
 	@JoinColumn(name="department_id")
     private Department department;
 	
-	@ManyToOne
-	@JoinColumn(name="status_id")
-	private Status status;
-	
 	@Type(type="hstore")
 	@Column(name="contacts")
 	private Map<String, String> contacts = new LinkedHashMap<>();
