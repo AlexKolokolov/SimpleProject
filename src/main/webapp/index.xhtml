@@ -43,7 +43,7 @@
 					<h:column>
 						<h:form>
 							<h:commandButton value="Remove" type="submit" action="#{employeeRemoveController.removeEmployee}">
-								<f:param name="employeeId" value="#{employee.id}" />
+								<f:setPropertyActionListener value="#{employee}" target="#{employeeRemoveController.employeeToRemove}" />
 								<f:ajax execute="@form" render="removeEmployeeMessage allEmployees emptyDeps" />
 							</h:commandButton>
 						</h:form>

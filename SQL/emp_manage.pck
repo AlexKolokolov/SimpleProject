@@ -13,7 +13,7 @@ create or replace PACKAGE BODY emp_manage AS
     v_emp_gender NUMBER;
 	BEGIN
     SELECT department_id, age, gender INTO v_dep_id, v_emp_age, v_emp_gender FROM employee WHERE employee_id = p_id;
-		IF (v_dep_id = constants.dep_chairmanship) 
+	IF (v_dep_id = constants.dep_chairmanship) 
     THEN
       p_error_code := constants.department_err_code;
     ELSIF (v_emp_age < constants.emp_min_age_to_remove OR v_emp_age > constants.emp_max_age_to_remove) 
