@@ -1,8 +1,9 @@
 create or replace PACKAGE constants AS
 	--constants for departments
+  dep_chairmanship NUMBER := 1;
   dep_production NUMBER := 1;
   dep_management NUMBER := 2;
-  dep_chairmanship NUMBER := 3;
+  dep_security NUMBER := 4;
   
   --constants for employee
   emp_min_age_to_remove NUMBER := 30;
