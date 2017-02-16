@@ -63,7 +63,7 @@ public class Employee {
 	@Column(name="contacts")
 	private Map<String, String> contacts = new LinkedHashMap<>();
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="employee")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="employee")
     private List<EmployeeFile> employeeFiles = new ArrayList<>();
 
     public Employee() {}

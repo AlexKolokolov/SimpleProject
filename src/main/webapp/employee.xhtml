@@ -53,14 +53,14 @@
 		<fieldset>
 			<legend>Employee files</legend>
 			<h:panelGroup id="allFiles">
-				<h:dataTable value="#{employeeDataController.employeeFiles}" var="file">
+				<h:dataTable value="#{employeeDataController.employeeFilesDescriptions.entrySet().toArray()}" var="fileDescription">
 					<h:column>
-						#{file.name}
+						#{fileDescription.value}
 					</h:column>
 					<h:column>
 						<h:form>
 							<h:commandButton value="Download" type="submit" action="#{fileDownloader.download}">
-								<f:param name="fileId" value="#{file.id}" />
+								<f:param name="fileId" value="#{fileDescription.key}" />
 							</h:commandButton>
 						</h:form>
 					</h:column>
