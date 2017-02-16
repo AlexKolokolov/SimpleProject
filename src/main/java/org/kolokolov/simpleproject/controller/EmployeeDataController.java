@@ -5,23 +5,23 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.service.EmployeeService;
+import org.kolokolov.simpleproject.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
 @ManagedBean
 public class EmployeeDataController {
-	
-	private static Logger logger = LogManager.getLogger();
-
-    private String employeeId;
+    
+    private Employee employee;
     
     @Autowired
     private EmployeeService employeeService;
+    
+    @Autowired
+    private FileService fileService;
     
     public List<Employee> getEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -29,22 +29,26 @@ public class EmployeeDataController {
     }
     
     public Employee getEmployee() {
-    	return employeeService.getEmployeeById(employeeId);
+    	return employee;
     }
     
     public Map<String,String> getContacts() {
-    	return employeeService.getEmployeeById(employeeId).getContacts();
+    	return employeeService.getEmployeeById(employee.getId()).getContacts();
+    }
+    
+    public Map<Integer,String> getEmployeeFilesDescriptions() {
+    	return fileService.getFileDescriptions(employee.getId());
     }
 
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
-	}   
+	}
+
+	public void setFileService(FileService fileService) {
+		this.fileService = fileService;
+	}
 }

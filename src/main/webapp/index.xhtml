@@ -32,14 +32,20 @@
 							#{employee.department.name}
 					</h:column>
 					<h:column>
-						<h:button value="Details" outcome="employee">
-							<f:param name="employeeId" value="#{employee.id}" />
-						</h:button>
+						<f:facet name="header">Status</f:facet>
+							#{employee.status}
 					</h:column>
 					<h:column>
 						<h:form>
-							<h:commandButton value="Remove" type="submit" action="#{employeeRemoveController.removeEmployee}">
-								<f:param name="employeeId" value="#{employee.id}" />
+							<h:commandButton value="Details" action="employee">
+								<f:setPropertyActionListener value="#{employee}" target="#{employeeDataController.employee}" />
+							</h:commandButton>
+						</h:form>
+					</h:column>
+					<h:column>
+						<h:form>
+							<h:commandButton value="Fire" type="submit" action="#{employeeRemoveController.removeEmployee}">
+								<f:setPropertyActionListener value="#{employee}" target="#{employeeRemoveController.employeeToRemove}" />
 								<f:ajax execute="@form" render="removeEmployeeMessage allEmployees emptyDeps" />
 							</h:commandButton>
 						</h:form>

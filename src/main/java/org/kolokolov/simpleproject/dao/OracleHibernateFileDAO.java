@@ -1,6 +1,13 @@
 package org.kolokolov.simpleproject.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +25,9 @@ public class OracleHibernateFileDAO implements FileDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private DataSource dataSource;
 
 	@Override
 	@Transactional
@@ -40,8 +50,29 @@ public class OracleHibernateFileDAO implements FileDAO {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(file);
 	}
-
+	
+	@Override
+	public Map<Integer, String> getFileDescriptions(int employeeId) {
+		String query = "SELECT employee_file_id, file_name FROM employee_file WHERE employee_id = ?";
+		Map<Integer,String> descriptions = new LinkedHashMap<>();
+		try (Connection connection = dataSource.getConnection();
+			PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setInt(1, employeeId);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				descriptions.put(resultSet.getInt(1),resultSet.getString(2));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return descriptions;
+	}
+	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 }

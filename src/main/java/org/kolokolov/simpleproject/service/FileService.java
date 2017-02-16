@@ -1,6 +1,7 @@
 package org.kolokolov.simpleproject.service;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,4 +27,7 @@ public class FileService {
 		fileDAO.saveFile(file);
 	}
 	
+	public Map<Integer, String> getFileDescriptions(int employeeId) {
+		return fileDAO.getFileDescriptions(employeeId);
+	}
 }

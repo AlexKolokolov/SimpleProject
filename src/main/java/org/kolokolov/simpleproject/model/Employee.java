@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -48,6 +49,10 @@ public class Employee {
 	@Enumerated(EnumType.ORDINAL)
 	private Gender gender;
 	
+	@Column(name="status")
+	@Enumerated(EnumType.ORDINAL)
+	private Status status;
+	
 	@Column(name="age")
 	private int age;
     
@@ -59,8 +64,11 @@ public class Employee {
 	@Column(name="contacts")
 	private Map<String, String> contacts = new LinkedHashMap<>();
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="employee")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="employee", cascade=CascadeType.ALL)
     private List<EmployeeFile> employeeFiles = new ArrayList<>();
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="employee", cascade=CascadeType.ALL)
+    private List<Event> employeeEvents = new ArrayList<>();
 
     public Employee() {}
     
@@ -149,6 +157,22 @@ public class Employee {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	public List<Event> getEmployeeEvents() {
+		return employeeEvents;
+	}
+
+	public void setEmployeeEvents(List<Event> employeeEvents) {
+		this.employeeEvents = employeeEvents;
 	}
 
 	@Override

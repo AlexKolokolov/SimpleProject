@@ -16,12 +16,8 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 public class EmployeeRemoveController {
     
-    private Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-    
     Integer errorCode;
-
-    private String id = params.get("employeeId");
-       
+    
     private Employee employeeToRemove;
     
     @Autowired
@@ -30,33 +26,24 @@ public class EmployeeRemoveController {
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    public String getId() {
-        return id;
-    }
     
     public String getMessage() {
-    	
         String msg;
         if (errorCode == null) {
             msg = "";
         } else {
         	switch (errorCode) {
 			case 0:
-				msg = String.format("Employee %s %s has been removed", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Employee %s %s has been fired", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			case 1:
-				msg = String.format("Employee %s %s cannot be removed because he is a chirman", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Employee %s %s cannot be fired because he is a chairman", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			case 2:
-				msg = String.format("Female employee %s %s cannot be removed", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Female employee %s %s cannot be fired", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			case 3:
-				msg = String.format("Employee %s %s cannot be removed because of age", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Employee %s %s cannot be fired because of age", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			default:
 				msg = "";
@@ -67,7 +54,14 @@ public class EmployeeRemoveController {
     }
     
     public void removeEmployee() {
-    	employeeToRemove = employeeService.getEmployeeById(id);
-    	errorCode = employeeService.removeEmployee(id);
+    	errorCode = employeeService.removeEmployee(employeeToRemove.getId());
     }
+
+	public Employee getEmployeeToRemove() {
+		return employeeToRemove;
+	}
+
+	public void setEmployeeToRemove(Employee employeeToRemove) {
+		this.employeeToRemove = employeeToRemove;
+	}
 }
