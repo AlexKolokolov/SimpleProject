@@ -1,6 +1,5 @@
 package org.kolokolov.simpleproject.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,18 +53,18 @@ public class OracleHibernateFileDAO implements FileDAO {
 	
 	@Override
 	public Map<Integer, String> getFileDescriptions(int employeeId) {
+		String query = "SELECT employee_file_id, file_name FROM employee_file WHERE employee_id = ?";
 		Map<Integer,String> descriptions = new LinkedHashMap<>();
 		try (Connection connection = dataSource.getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT employee_file_id, file_name FROM employee_file WHERE employee_id = ?")) {
-				statement.setInt(1, employeeId);
-				ResultSet resultSet = statement.executeQuery();
-				while (resultSet.next()) {
-					descriptions.put(resultSet.getInt(1),resultSet.getString(2));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
+			PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setInt(1, employeeId);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				descriptions.put(resultSet.getInt(1),resultSet.getString(2));
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return descriptions;
 	}
 	
