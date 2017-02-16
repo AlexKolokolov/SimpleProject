@@ -1,5 +1,7 @@
 package org.kolokolov.simpleproject.service;
 
+import java.util.List;
+
 import org.kolokolov.simpleproject.dao.HistoryDAO;
 import org.kolokolov.simpleproject.model.Action;
 import org.kolokolov.simpleproject.model.Event;
@@ -22,5 +24,9 @@ public class EventService {
 	
 	public Action getAction(int actionId) {
 		return historyDAO.getAction(actionId);
+	}
+	
+	public List<Event> getEmployeeEvents(int employeeId) {
+		return historyDAO.getEmployeeEvents(employeeId);
 	}
 }

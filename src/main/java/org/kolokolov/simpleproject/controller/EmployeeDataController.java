@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.Event;
 import org.kolokolov.simpleproject.service.EmployeeService;
+import org.kolokolov.simpleproject.service.EventService;
 import org.kolokolov.simpleproject.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class EmployeeDataController {
     
     @Autowired
     private FileService fileService;
+    
+    @Autowired
+    private EventService eventService;
     
     public List<Employee> getEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -39,6 +44,10 @@ public class EmployeeDataController {
     public Map<Integer,String> getEmployeeFilesDescriptions() {
     	return fileService.getFileDescriptions(employee.getId());
     }
+    
+    public List<Event> getEmployeeEvents() {
+    	return eventService.getEmployeeEvents(employee.getId());
+    }
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
@@ -50,5 +59,9 @@ public class EmployeeDataController {
 
 	public void setFileService(FileService fileService) {
 		this.fileService = fileService;
+	}
+
+	public void setEventService(EventService eventService) {
+		this.eventService = eventService;
 	}
 }

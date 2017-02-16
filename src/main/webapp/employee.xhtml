@@ -86,7 +86,7 @@
 		<fieldset>
 			<legend>Employee history</legend>
 			<h:panelGroup id="history">
-				<h:dataTable value="#{employeeDataController.employee.employeeEvents}" var="event">
+				<h:dataTable value="#{employeeDataController.employeeEvents}" var="event">
 					<h:column>
 					<f:facet name="header">Event ID</f:facet>
 						#{event.id}

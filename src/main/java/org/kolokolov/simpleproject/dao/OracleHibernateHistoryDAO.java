@@ -27,7 +27,7 @@ public class OracleHibernateHistoryDAO implements HistoryDAO {
 	@Transactional
 	public List<Event> getEmployeeEvents(int employeeId) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("FROM Event WHERE Employee.id = :id", Event.class).setParameter("id", employeeId).getResultList();
+		return session.createQuery("FROM Event e WHERE e.employee.id = :id", Event.class).setParameter("id", employeeId).getResultList();
 	}
 	
 	@Override
