@@ -16,6 +16,13 @@ public class Action {
 	@Column(name="action_name")
 	private String name;
 
+	public Action() {}
+	
+	public Action(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public int getId() {
 		return id;
 	}

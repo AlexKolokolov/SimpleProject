@@ -31,9 +31,30 @@ public class Event {
 	@JoinColumn(name="action_id")
 	private Action action;
 	
+	@ManyToOne
+	@JoinColumn(name="employee_id")
+	private Employee employee;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="event_time")
 	private Date date;
+
+	public Event() {}
+	
+	public Event(String description, Action action, Employee employee, Date date) {
+		this.description = description;
+		this.action = action;
+		this.employee = employee;
+		this.date = date;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 	public int getId() {
 		return id;
@@ -65,5 +86,10 @@ public class Event {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "[ID: " + id + " : " + description + " : " + action.getName() + " : " + date + "]";
 	}
 }

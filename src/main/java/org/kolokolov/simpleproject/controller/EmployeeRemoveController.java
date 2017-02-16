@@ -35,16 +35,16 @@ public class EmployeeRemoveController {
         } else {
         	switch (errorCode) {
 			case 0:
-				msg = String.format("Employee %s %s has been removed", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Employee %s %s has been fired", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			case 1:
-				msg = String.format("Employee %s %s cannot be removed because he is a chairman", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Employee %s %s cannot be fired because he is a chairman", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			case 2:
-				msg = String.format("Female employee %s %s cannot be removed", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Female employee %s %s cannot be fired", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			case 3:
-				msg = String.format("Employee %s %s cannot be removed because of age", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
+				msg = String.format("Employee %s %s cannot be fired because of age", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
 				break;
 			default:
 				msg = "";

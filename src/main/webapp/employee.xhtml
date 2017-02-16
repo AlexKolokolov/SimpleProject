@@ -78,6 +78,29 @@
 				</h:commandButton>
 			</h:form>
 		</fieldset>
+		<fieldset>
+			<legend>Employee history</legend>
+			<h:panelGroup id="history">
+				<h:dataTable value="#{employeeDataController.employee.employeeEvents}" var="event">
+					<h:column>
+					<f:facet name="header">ID</f:facet>
+						#{event.id}
+					</h:column>
+					<h:column>
+					<f:facet name="header">Action</f:facet>
+						#{event.action.name}
+					</h:column>
+					<h:column>
+					<f:facet name="header">Description</f:facet>
+						#{event.description}
+					</h:column>
+					<h:column>
+					<f:facet name="header">Date</f:facet>
+						#{event.date}
+					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+		</fieldset>
 		<br/>
 		<h:button value="Back" outcome="index" />
 	</h:body>

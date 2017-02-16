@@ -13,7 +13,6 @@ import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.EmployeeFile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,6 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	private DataSource dataSource;
 	
 	@Autowired
-	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 	
 	public OracleHibernateEmployeeDAO() {
@@ -49,9 +47,9 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 
 	@Override
 	@Transactional
-	public void addNewEmployee(Employee employee) {
+	public int addNewEmployee(Employee employee) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(employee);
+		return (int) session.save(employee);
 	}
 	
 	@Override
@@ -84,17 +82,6 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Employee employee = session.get(Employee.class, employeeId);
 		employee.addContact(contactType, contactValue);
-		session.persist(employee);
-	}
-	
-	@Override
-	@Transactional
-	public void addFileToEmployee(int employeeId, EmployeeFile file) {
-		logger.debug("addFileToEmployee method runs");
-		Session session = sessionFactory.getCurrentSession();
-		Employee employee = session.get(Employee.class, employeeId);
-		logger.debug("File to save: " + file.getName());
-		employee.addFile(file);
 		session.persist(employee);
 	}
 	

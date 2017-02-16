@@ -1,13 +1,15 @@
 package org.kolokolov.simpleproject.service;
 
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.dao.EmployeeDAO;
+import org.kolokolov.simpleproject.dao.HistoryDAO;
+import org.kolokolov.simpleproject.model.Action;
 import org.kolokolov.simpleproject.model.Employee;
-import org.kolokolov.simpleproject.model.EmployeeFile;
+import org.kolokolov.simpleproject.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class EmployeeService {
     @Qualifier("oracleHibernateEmployeeDAO")
     private EmployeeDAO employeeDAO;
     
+    @Autowired
+    private HistoryDAO historyDAO;
+    
     public List<Employee> getAllEmployees() {
         return employeeDAO.getAllEmployees();
     }
@@ -28,9 +33,23 @@ public class EmployeeService {
     public void setEmployeeDAO(EmployeeDAO employeeDAO) {
         this.employeeDAO = employeeDAO;
     }
-    
-    public void addNewEmployee(Employee employee) {
-        employeeDAO.addNewEmployee(employee);
+
+    public void setHistoryDAO(HistoryDAO historyDAO) {
+		this.historyDAO = historyDAO;
+	}
+
+	public void addNewEmployee(Employee employee) {
+        int generatedId = employeeDAO.addNewEmployee(employee);
+        String eventDescription = String.format("Employee %s %s has been hired", employee.getFirstName(), employee.getLastName());
+        logger.debug("generated id = " + generatedId);
+        employee.setId(generatedId);
+        Action action = historyDAO.getAction(1);
+        Event event = new Event();
+        event.setDescription(eventDescription);
+        event.setAction(action);
+        event.setDate(new Date());
+        event.setEmployee(employee);
+        historyDAO.addEvent(event);
     }
 
     public Integer removeEmployee(String id) {
@@ -43,14 +62,5 @@ public class EmployeeService {
 
 	public void addNewContactToEmploye(int id, String contactType, String contactValue) {
 		employeeDAO.addNewContact(id, contactType, contactValue);
-	}
-
-	public void addFileToEmployee(String id, EmployeeFile file) {
-		logger.debug("File to save " + file.getName() + ", " + Arrays.toString(file.getData()));
-		employeeDAO.addFileToEmployee(Integer.parseInt(id), file);
-	}
-
-	public List<EmployeeFile> getFiles(String id) {
-		return employeeDAO.getFiles(Integer.parseInt(id));
 	}
 }
