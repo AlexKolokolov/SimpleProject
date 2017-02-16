@@ -18,4 +18,6 @@ public interface EmployeeDAO {
 	void addNewContact(int employeeId, String contactType, String contactValue);
 	
 	List<EmployeeFile> getFiles(int employeeId);
+	
+	void persistEmployee(Employee employee);
 }

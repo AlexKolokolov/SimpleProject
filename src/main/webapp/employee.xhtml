@@ -18,6 +18,11 @@
 			<p>Age: #{employeeDataController.employee.age}</p>
 			<p>Gender: #{employeeDataController.employee.gender}</p>
 			<p>Department: #{employeeDataController.employee.department.name}</p>
+			<h:form>
+				<h:commandButton value="Edit" action="employeeEdit" actionListener="#{employeeEditor.editEmployee}">
+					<f:attribute name="employee" value="#{employeeDataController.employee}" />
+				</h:commandButton>
+			</h:form>
 		</fieldset>
 		<fieldset>
 			<legend>Contacts</legend>

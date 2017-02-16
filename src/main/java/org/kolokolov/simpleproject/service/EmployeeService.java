@@ -74,4 +74,9 @@ public class EmployeeService {
 	public void addNewContactToEmploye(int id, String contactType, String contactValue) {
 		employeeDAO.addNewContact(id, contactType, contactValue);
 	}
+
+	public void saveEmployee(Employee employee) {
+		employeeDAO.persistEmployee(employee);
+		
+	}
 }

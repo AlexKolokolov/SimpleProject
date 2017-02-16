@@ -92,6 +92,17 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 		Employee employee = session.get(Employee.class, employeeId);
 		return employee.getEmployeeFiles();
 	}
+	
+	@Override
+	@Transactional
+	public void persistEmployee(Employee employee) {
+		Session session = sessionFactory.getCurrentSession();
+		Employee persistedEmployee = session.get(Employee.class, employee.getId());
+		persistedEmployee.setFirstName(employee.getFirstName());
+		persistedEmployee.setLastName(employee.getLastName());
+		persistedEmployee.setDepartment(employee.getDepartment());
+		session.persist(persistedEmployee);
+	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
