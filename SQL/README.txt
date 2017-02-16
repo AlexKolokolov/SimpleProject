@@ -1,5 +1,5 @@
 1. Run project on server with hibernate.hbm2ddl.auto=create parameter in acplicationContext.xml
-	Hibernate will create all the neccessary tables.
+	Hibernate will create all the necessary tables.
 2. Add Departments to DB. Query set from file insert_departments.sql
 3. Add Actions to DB. Query set from file insert_actions.sql
 4. Compile packages from files constants.pck, dep_manage.pck and emp_manage.pck
