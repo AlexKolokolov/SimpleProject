@@ -28,7 +28,6 @@ public class EmployeeRemoveController {
     }
     
     public String getMessage() {
-    	
         String msg;
         if (errorCode == null) {
             msg = "";
@@ -55,7 +54,7 @@ public class EmployeeRemoveController {
     }
     
     public void removeEmployee() {
-    	errorCode = employeeService.removeEmployee(String.valueOf(employeeToRemove.getId()));
+    	errorCode = employeeService.removeEmployee(employeeToRemove.getId());
     }
 
 	public Employee getEmployeeToRemove() {

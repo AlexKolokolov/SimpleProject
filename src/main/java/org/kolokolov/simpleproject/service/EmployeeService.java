@@ -52,8 +52,19 @@ public class EmployeeService {
         historyDAO.addEvent(event);
     }
 
-    public Integer removeEmployee(String id) {
-        return employeeDAO.removeEmployee(Integer.parseInt(id));
+    public Integer removeEmployee(int id) {
+    	Integer errorCode = employeeDAO.removeEmployee(id);
+    	if (errorCode != null && errorCode == 0) {
+    		Employee employee = employeeDAO.getEmployeesById(id);
+    		String eventDescription = String.format("Employee %s %s has been fired", employee.getFirstName(), employee.getLastName());
+    		Event event = new Event();
+    		event.setAction(historyDAO.getAction(3));
+    		event.setDescription(eventDescription);
+    		event.setEmployee(employee);
+    		event.setDate(new Date());
+    		historyDAO.addEvent(event);
+    	}
+        return errorCode;
     }
 
     public Employee getEmployeeById(int id) {
