@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.EmployeeFile;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 @ManagedBean
 public class EmployeeDataController {
-	
-    private String employeeId;
+    
+    private Employee employee;
     
     @Autowired
     private EmployeeService employeeService;
@@ -25,19 +26,19 @@ public class EmployeeDataController {
     }
     
     public Employee getEmployee() {
-    	return employeeService.getEmployeeById(employeeId);
+    	return employee;
     }
     
     public Map<String,String> getContacts() {
-    	return employeeService.getEmployeeById(employeeId).getContacts();
+    	return employeeService.getEmployeeById(employee.getId()).getContacts();
+    }
+    
+    public List<EmployeeFile> getEmployeeFiles() {
+    	return employeeService.getEmployeeById(employee.getId()).getEmployeeFiles();
     }
 
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public void setEmployeeService(EmployeeService employeeService) {

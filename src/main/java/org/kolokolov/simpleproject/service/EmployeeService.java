@@ -37,12 +37,12 @@ public class EmployeeService {
         return employeeDAO.removeEmployee(Integer.parseInt(id));
     }
 
-    public Employee getEmployeeById(String id) {
-        return employeeDAO.getEmployeesById(Integer.parseInt(id));
+    public Employee getEmployeeById(int id) {
+        return employeeDAO.getEmployeesById(id);
     }
 
-	public void addNewContactToEmploye(String id, String contactType, String contactValue) {
-		employeeDAO.addNewContact(Integer.parseInt(id), contactType, contactValue);
+	public void addNewContactToEmploye(int id, String contactType, String contactValue) {
+		employeeDAO.addNewContact(id, contactType, contactValue);
 	}
 
 	public void addFileToEmployee(String id, EmployeeFile file) {

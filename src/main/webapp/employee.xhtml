@@ -7,9 +7,6 @@
 
 	<h:head>
 		<title>Employee details</title>
-		<f:metadata>
-			<f:viewParam name="employeeId" value="#{employeeDataController.employeeId}" />
-		</f:metadata>
 	</h:head>
 	<h:body>
 		<h1>Employee details</h1>
@@ -27,11 +24,9 @@
 			<h:panelGroup id="contacts">
 				<h:dataTable value="#{employeeDataController.contacts.entrySet().toArray()}" var="entry">
 					<h:column>
-						<f:facet name="header">Contact type</f:facet>
 						#{entry.key}
 					</h:column>
 					<h:column>
-						<f:facet name="header">Contact</f:facet>
 						#{entry.value}
 					</h:column>
 				</h:dataTable>
@@ -49,7 +44,7 @@
 				<br/>
 				<br/>
 				<h:commandButton value="Add contact" type="submit" action="#{newContactController.addNewContact}">
-					<f:param name="employeeId" value="#{employeeDataController.employeeId}" />
+					<f:setPropertyActionListener value="#{employeeDataController.employee.id}" target="#{newContactController.employeeId}" />
 					<f:ajax execute="@form" render="addContactMessage contacts" />
 				</h:commandButton>
 			</h:form>
@@ -58,7 +53,7 @@
 		<fieldset>
 			<legend>Employee files</legend>
 			<h:panelGroup id="allFiles">
-				<h:dataTable value="#{employeeDataController.employee.employeeFiles}" var="file">
+				<h:dataTable value="#{employeeDataController.employeeFiles}" var="file">
 					<h:column>
 						#{file.name}
 					</h:column>
@@ -71,12 +66,15 @@
 					</h:column>
 				</h:dataTable>
 			</h:panelGroup>
+		</fieldset>
+		<fieldset>
+			<legend>Add new file</legend>
 			<h:form enctype="multipart/form-data">
 				<h:inputFile value="#{newFileUploader.uploadedFile}" />
 				<br/>
-				<br/>
 				<h:commandButton value="Upload" type="submit" action="#{newFileUploader.save}">
-					<f:param name="employeeId" value="#{employeeDataController.employeeId}" />
+					<f:setPropertyActionListener value="#{employeeDataController.employee}" target="#{newFileUploader.employee}" />
+					<f:ajax execute="@form" render="allFiles" />
 				</h:commandButton>
 			</h:form>
 		</fieldset>

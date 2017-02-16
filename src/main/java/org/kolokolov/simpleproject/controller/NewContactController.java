@@ -1,12 +1,7 @@
 package org.kolokolov.simpleproject.controller;
 
-import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,21 +12,15 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 public class NewContactController {
 	
-	private static Logger logger = LogManager.getLogger();
-
 	@Autowired
 	private EmployeeService employeeService;
-	
-	private Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
-	private String employeeId = params.get("employeeId");	
+	private int employeeId;	
 	
 	private String contactType;
 	private String contactValue;
 	
 	public void addNewContact() {
-		logger.debug("Params = " + params);
-		logger.debug("EmployeeId = " + employeeId);
 		employeeService.addNewContactToEmploye(employeeId, contactType, contactValue);
 	}
 	
@@ -45,11 +34,11 @@ public class NewContactController {
 		return msg;
 	}
 
-	public String getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(String employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 
