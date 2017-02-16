@@ -1,5 +1,6 @@
 package org.kolokolov.simpleproject.controller;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -10,8 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.Event;
 import org.kolokolov.simpleproject.service.DepartmentService;
 import org.kolokolov.simpleproject.service.EmployeeService;
+import org.kolokolov.simpleproject.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -26,6 +29,9 @@ public class EmployeeEditor {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	private EventService eventService;
 
 	private Employee employee;
 	
@@ -49,6 +55,7 @@ public class EmployeeEditor {
 			firstName = employee.getFirstName();
 			lastName = employee.getLastName();
 			department = employee.getDepartment();
+			departmentId = String.valueOf(department.getId());
 		}
 	}
 	
@@ -56,8 +63,15 @@ public class EmployeeEditor {
 		logger.debug("Employee for editing: " + employee);
 		if (department.getId() != Integer.parseInt(departmentId)) {
 			department = departmentService.getDepartmentById(departmentId);
+			employee.setDepartment(department);
+			Event event = new Event();
+			String eventDescription = String.format("Employee %s %s has been transfered to %s department", employee.getFirstName(), employee.getLastName(), department.getName());
+			event.setDescription(eventDescription);
+			event.setAction(eventService.getAction(4));
+			event.setDate(new Date());
+			event.setEmployee(employee);
+			eventService.addEvent(event);
 		}
-		employee.setDepartment(department);
 		employee.setFirstName(firstName);
 		employee.setLastName(lastName);
 		employeeService.saveEmployee(employee);
@@ -114,5 +128,9 @@ public class EmployeeEditor {
 
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
+	}
+
+	public void setEventService(EventService eventService) {
+		this.eventService = eventService;
 	}
 }
