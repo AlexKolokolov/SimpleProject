@@ -1,7 +1,9 @@
 package org.kolokolov.simpleproject.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +17,6 @@ import org.kolokolov.simpleproject.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import oracle.jdbc.OracleCallableStatement;
-import oracle.jdbc.internal.OracleTypes;
 
 @Repository
 public class OracleHibernateDepartmentDAO implements DepartmentDAO {
@@ -40,20 +39,16 @@ public class OracleHibernateDepartmentDAO implements DepartmentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createQuery("FROM Department", Department.class).getResultList();
 	}
-
+	
 	@Override
 	public List<Department> getEmptyDepartments() {
-		String query = "{ ? = call DEP_MANAGE.F_GET_EMPTY_DEPS() }";
 		List<Department> emptyDepartments = new ArrayList<>();
-		logger.debug("getEmptyDepartments method runs");
+		String query = "SELECT id, name FROM TABLE(F_GET_EMPTY_DEPS)";
 		try (Connection connection = dataSource.getConnection();
-			OracleCallableStatement statement = (OracleCallableStatement) connection.prepareCall(query)) {
-			statement.registerOutParameter(1, OracleTypes.ARRAY, "DEP_MANAGE.DEP_TABLE_T");
-			statement.execute();
-			ResultSet rs = (ResultSet) statement.getObject(1);
-			while (rs.next()) {
-				Department department = new Department(rs.getInt("department_id"), rs.getString("name"));
-				emptyDepartments.add(department);
+			Statement statement = connection.createStatement()) {
+			ResultSet resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				emptyDepartments.add(new Department(resultSet.getInt(1), resultSet.getString(2)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
