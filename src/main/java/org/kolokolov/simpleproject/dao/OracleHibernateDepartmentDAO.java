@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.internal.OracleTypes;
 
 @Repository
@@ -49,8 +50,8 @@ public class OracleHibernateDepartmentDAO implements DepartmentDAO {
 		List<Department> emptyDepartments = new ArrayList<>();
 		logger.debug("getEmptyDepartments method runs");
 		try (Connection connection = dataSource.getConnection();
-			CallableStatement statement = connection.prepareCall(query)) {
-			statement.registerOutParameter(1, OracleTypes.ARRAY, "DEP_TABLE_TYPE");
+			OracleCallableStatement statement = (OracleCallableStatement) connection.prepareCall(query)) {
+			statement.registerOutParameter(1, OracleTypes.ARRAY, "DEP_MANAGE.DEP_TABLE_T");
 			statement.execute();
 			ResultSet rs = (ResultSet) statement.getObject(1);
 			while (rs.next()) {
