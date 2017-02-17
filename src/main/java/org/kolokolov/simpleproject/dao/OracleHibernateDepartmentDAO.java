@@ -1,6 +1,5 @@
 package org.kolokolov.simpleproject.dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -43,7 +42,7 @@ public class OracleHibernateDepartmentDAO implements DepartmentDAO {
 	@Override
 	public List<Department> getEmptyDepartments() {
 		List<Department> emptyDepartments = new ArrayList<>();
-		String query = "SELECT id, name FROM TABLE(F_GET_EMPTY_DEPS)";
+		String query = "SELECT id, name FROM TABLE(DEP_MANAGE.F_GET_EMPTY_DEPS)";
 		try (Connection connection = dataSource.getConnection();
 			Statement statement = connection.createStatement()) {
 			ResultSet resultSet = statement.executeQuery(query);
