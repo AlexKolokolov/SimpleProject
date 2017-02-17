@@ -6,7 +6,9 @@ import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.EmployeeFile;
 
 public interface EmployeeDAO {
+	
     List<Employee> getAllEmployees();
+    
     List<Employee> getEmployeesByLastName(String lastName);
     
     int addNewEmployee(Employee employee);

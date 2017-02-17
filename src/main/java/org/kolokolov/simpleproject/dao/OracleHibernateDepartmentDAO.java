@@ -1,6 +1,5 @@
 package org.kolokolov.simpleproject.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +28,6 @@ public class OracleHibernateDepartmentDAO implements DepartmentDAO {
 	private DataSource dataSource;
 	
 	@Autowired
-	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
 	public OracleHibernateDepartmentDAO() {
