@@ -40,6 +40,8 @@ public class NewEmployeeController {
     
     private String departmentId;
     
+    private boolean departmentChief;
+    
     private Map<String, String> departments;
     List<Integer> ages;
     
@@ -72,6 +74,9 @@ public class NewEmployeeController {
     	Department department = departmentService.getDepartmentById(departmentId);
     	logger.debug("department: " + department);
     	employee = new Employee(firstName, lastName, Enum.valueOf(Gender.class, gender), Integer.parseInt(age), department);
+    	if (!departmentChief) {
+    		employee.setChief(employeeService.getDepartmetChief(department));
+    	}
     	employee.setStatus(Status.ACTIVE);
         employeeService.addNewEmployee(employee);
     }
@@ -139,5 +144,13 @@ public class NewEmployeeController {
 
 	public List<Integer> getAges() {
 		return ages;
+	}
+
+	public boolean isDepartmentChief() {
+		return departmentChief;
+	}
+
+	public void setDepartmentChief(boolean departmentChief) {
+		this.departmentChief = departmentChief;
 	}
 }

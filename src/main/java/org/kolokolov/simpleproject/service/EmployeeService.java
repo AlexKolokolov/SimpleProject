@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.dao.EmployeeDAO;
 import org.kolokolov.simpleproject.dao.HistoryDAO;
 import org.kolokolov.simpleproject.model.Action;
+import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,10 @@ public class EmployeeService {
     	}
         return errorCode;
     }
+    
+    public List<Employee> getSubordinates(Employee employee) {
+    	return employeeDAO.getSubordinates(employee);
+    }
 
     public Employee getEmployeeById(int id) {
         return employeeDAO.getEmployeesById(id);
@@ -78,5 +83,9 @@ public class EmployeeService {
 	public void saveEmployee(Employee employee) {
 		employeeDAO.persistEmployee(employee);
 		
+	}
+
+	public Employee getDepartmetChief(Department department) {
+		return employeeDAO.getDepartmentChief(department.getId());
 	}
 }

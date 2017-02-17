@@ -55,6 +55,10 @@ public class Employee {
 	
 	@Column(name="age")
 	private int age;
+	
+	@ManyToOne
+	@JoinColumn(name="chief_id")
+	private Employee chief;
     
 	@ManyToOne
 	@JoinColumn(name="department_id")
@@ -173,6 +177,14 @@ public class Employee {
 
 	public void setEmployeeEvents(List<Event> employeeEvents) {
 		this.employeeEvents = employeeEvents;
+	}
+
+	public Employee getChief() {
+		return chief;
+	}
+
+	public void setChief(Employee chief) {
+		this.chief = chief;
 	}
 
 	@Override

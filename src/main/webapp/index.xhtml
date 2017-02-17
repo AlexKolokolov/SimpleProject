@@ -83,6 +83,9 @@
 				</h:selectOneMenu>
 				<br/>
 				<br/>
+				<h:selectBooleanCheckbox value="#{newEmployeeController.departmentChief}" />Appoint a chief
+				<br/>
+				<br/>
 				<h:commandButton value="Add employee" type="submit"
 					action="#{newEmployeeController.addNewEmployee}">
 					<f:ajax execute="@form"

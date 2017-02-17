@@ -20,4 +20,8 @@ public interface EmployeeDAO {
 	List<EmployeeFile> getFiles(int employeeId);
 	
 	void persistEmployee(Employee employee);
+	
+	Employee getDepartmentChief(int departmnetId);
+	
+	List<Employee> getSubordinates(Employee employee);
 }
