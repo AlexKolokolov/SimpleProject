@@ -38,7 +38,7 @@
 					</h:column>
 					<h:column>
 						<h:form>
-							<h:commandButton value="Details" action="employee">
+							<h:commandButton value="Details" action="employee?faces-redirect=true">
 								<f:setPropertyActionListener value="#{employee}" target="#{employeeDataController.employee}" />
 							</h:commandButton>
 						</h:form>

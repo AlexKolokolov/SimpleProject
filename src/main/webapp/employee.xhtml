@@ -21,7 +21,7 @@
 			<p>Gender: #{employeeDataController.employee.gender}</p>
 			<p>Department: #{employeeDataController.employee.department.name}</p>
 			<h:form>
-				<h:commandButton value="Edit" action="employeeEdit" actionListener="#{employeeEditor.editEmployee}">
+				<h:commandButton value="Edit" action="employeeEdit?faces-redirect=true" actionListener="#{employeeEditor.editEmployee}">
 					<f:attribute name="employee" value="#{employeeDataController.employee}" />
 				</h:commandButton>
 			</h:form>
