@@ -1,13 +1,11 @@
 package org.kolokolov.simpleproject.controller;
 
-import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -53,6 +51,7 @@ public class EmployeeRemoveController {
         return msg;
     }
     
+    @Secured({"ROLE_ADMIN"})
     public void removeEmployee() {
     	errorCode = employeeService.removeEmployee(employeeToRemove.getId());
     }

@@ -12,10 +12,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"
   
   <context-param>
   	<param-name>contextConfigLocation</param-name>
-  	<param-value>
-  		/WEB-INF/spring/applicationContext.xml
-  		/WEB-INF/spring/security.xml
-  	</param-value>
+  	<param-value>/WEB-INF/spring/*</param-value>
   </context-param>
   
   <!-- Change to "Production" when you are ready to deploy -->
@@ -36,6 +33,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"
 	</listener-class>
   </listener>
   
+  <!-- Add Spring Security URLs filtering -->
   <filter>
   	<filter-name>springSecurityFilterChain</filter-name>
   	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -43,27 +41,29 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"
   <filter-mapping>
   	<filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+  	<dispatcher>REQUEST</dispatcher>
   </filter-mapping>
   
   <servlet>
-    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-name>FacesServlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-name>FacesServlet</servlet-name>
 		<url-pattern>*.faces</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-name>FacesServlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
  

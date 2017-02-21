@@ -11,6 +11,7 @@ import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.EmployeeFile;
 import org.kolokolov.simpleproject.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -30,6 +31,7 @@ public class NewFileUploader {
 	
 	private Part uploadedFile;
 	
+	@Secured({"ROLE_ADMIN"})
 	public void save() {
 		String fileName = uploadedFile.getSubmittedFileName();
 		try (InputStream inputStream = uploadedFile.getInputStream()) {

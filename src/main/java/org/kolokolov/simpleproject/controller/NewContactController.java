@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -20,6 +21,7 @@ public class NewContactController {
 	private String contactType;
 	private String contactValue;
 	
+	@Secured({"ROLE_ADMIN"})
 	public void addNewContact() {
 		employeeService.addNewContactToEmploye(employeeId, contactType, contactValue);
 	}

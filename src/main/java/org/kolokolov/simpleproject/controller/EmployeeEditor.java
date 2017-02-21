@@ -16,6 +16,7 @@ import org.kolokolov.simpleproject.service.DepartmentService;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.kolokolov.simpleproject.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -59,6 +60,7 @@ public class EmployeeEditor {
 		}
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	public String saveEditedEmployee() {
 		logger.debug("Employee for editing: " + employee);
 		if (department.getId() != Integer.parseInt(departmentId)) {

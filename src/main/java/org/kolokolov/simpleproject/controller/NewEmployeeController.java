@@ -16,6 +16,7 @@ import org.kolokolov.simpleproject.model.Status;
 import org.kolokolov.simpleproject.service.DepartmentService;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -70,6 +71,7 @@ public class NewEmployeeController {
         return msg;
     }
     
+    @Secured({"ROLE_ADMIN"})
     public void addNewEmployee() {
     	Department department = departmentService.getDepartmentById(departmentId);
     	logger.debug("department: " + department);
