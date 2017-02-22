@@ -41,6 +41,10 @@ public class EmployeeDataController {
     	return employeeService.getSubordinates(employee);
     }
     
+    public List<Employee> getChiefs() {
+    	return employeeService.getChiefs(employee);
+    }
+    
     public Map<String,String> getContacts() {
     	return employeeService.getEmployeeById(employee.getId()).getContacts();
     }

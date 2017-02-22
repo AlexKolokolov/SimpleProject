@@ -28,6 +28,24 @@
 		</fieldset>
 		<br/>
 		<fieldset>
+			<legend>Chiefs</legend>
+			<h:dataTable value="#{employeeDataController.chiefs}" var="chief">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					#{chief.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">First name</f:facet>
+					#{chief.firstName}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Last name</f:facet>
+					#{chief.lastName}
+				</h:column>
+			</h:dataTable>
+		</fieldset>
+		<br/>
+		<fieldset>
 			<legend>Subordinates</legend>
 			<h:dataTable value="#{employeeDataController.subordinates}" var="subordinate">
 				<h:column>

@@ -28,4 +28,6 @@ public interface EmployeeDAO {
 	List<Employee> getSubordinates(Employee employee);
 
 	List<Employee> getEmployeesOfDepartment(int departmentId);
+
+	List<Employee> getChiefs(Employee employee);
 }

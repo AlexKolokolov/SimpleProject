@@ -13,6 +13,7 @@ import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -71,6 +72,10 @@ public class EmployeeService {
     public List<Employee> getSubordinates(Employee employee) {
     	return employeeDAO.getSubordinates(employee);
     }
+    
+    public List<Employee> getChiefs(Employee employee) {
+    	return employeeDAO.getChiefs(employee);
+    }
 
     public Employee getEmployeeById(int id) {
         return employeeDAO.getEmployeesById(id);
@@ -81,8 +86,7 @@ public class EmployeeService {
 	}
 
 	public void saveEmployee(Employee employee) {
-		employeeDAO.persistEmployee(employee);
-		
+		employeeDAO.persistEmployee(employee);	
 	}
 
 	public Employee getDepartmetChief(Department department) {

@@ -147,6 +147,29 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 		}
 		return resultList;
 	}
+	
+	@Override
+	public List<Employee> getChiefs(Employee employee) {
+		logger.debug("Getting subordinates of " + employee);
+		List<Employee> resultList = new ArrayList<>();
+		String query = "SELECT employee_id, first_name, last_name FROM employee WHERE department_id = ? START WITH employee_id = ? CONNECT BY employee_id = PRIOR chief_id";
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setInt(1, employee.getDepartment().getId());
+			statement.setInt(2, employee.getChief().getId());
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Employee subordinate = new Employee();
+				subordinate.setId(resultSet.getInt(1));
+				subordinate.setFirstName(resultSet.getString(2));
+				subordinate.setLastName(resultSet.getString(3));
+				resultList.add(subordinate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultList;
+	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
