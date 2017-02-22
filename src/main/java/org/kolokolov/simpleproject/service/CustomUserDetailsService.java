@@ -3,6 +3,8 @@ package org.kolokolov.simpleproject.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.dao.UserDAO;
@@ -25,9 +27,20 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user = userDAO.getUserByName(userName);
-		if (user == null) {
-			throw new UsernameNotFoundException("No user with name " + userName);
+		logger.debug("loadUserByUsername method runs with parameter: " + userName);
+		User user = null;
+		try {
+			user = userDAO.getUserByName(userName);
+		} catch (NoResultException nre) {
+			logger.debug("Exception in userDAO: " + nre.getMessage());
+			logger.debug("No user found exception has been thown");
+			String exceptionMessage;
+			if (userName == null || userName.equals("")) {
+				exceptionMessage = "Empty user name";
+			} else {
+				exceptionMessage = String.format("No user with name %s has been found", userName);
+			}
+			throw new NoResultException(exceptionMessage);
 		}
 		logger.debug("======== User: " + user);
 		UserDetails userDetails = new org.springframework.security.core.userdetails.User(
