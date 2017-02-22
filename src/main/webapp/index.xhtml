@@ -79,15 +79,15 @@
 				</h:selectOneMenu>
 				<br/>
 				<br/>
-				<h:outputLabel for="setDepartment" value="Department" /><br/>
-				<h:selectOneMenu id="setDepartment" value="#{newEmployeeController.departmentId}">
+				<h:outputLabel for="selectDepartment" value="Department" /><br/>
+				<h:selectOneMenu id="selectDepartment" value="#{newEmployeeController.departmentId}">
 					<f:selectItems value="#{newEmployeeController.departments}" />
-					<f:ajax execute="setDepartment" render="collegues" />
+					<f:ajax execute="selectDepartment" render="selectChief" />
 				</h:selectOneMenu>
 				<br/>
 				<br/>
-				<h:outputLabel for="collegues" value="Chief" /><br/>
-				<h:selectOneMenu id="collegues" value="#{newEmployeeController.chiefId}">
+				<h:outputLabel for="selectChief" value="Chief" /><br/>
+				<h:selectOneMenu id="selectChief" value="#{newEmployeeController.chiefId}">
 					<f:selectItems value="#{newEmployeeController.collegues}" />
 				</h:selectOneMenu>
 				<br/>

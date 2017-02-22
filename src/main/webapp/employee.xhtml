@@ -27,26 +27,24 @@
 			</h:form>
 		</fieldset>
 		<br/>
-		<c:if test="#{employeeDataController.employee.chief == null}">
-			<fieldset>
-				<legend>Subordinates</legend>
-				<h:dataTable value="#{employeeDataController.subordinates}" var="subordinate">
-					<h:column>
-						<f:facet name="header">ID</f:facet>
-						#{subordinate.id}
-					</h:column>
-					<h:column>
-						<f:facet name="header">First name</f:facet>
-						#{subordinate.firstName}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Last name</f:facet>
-						#{subordinate.lastName}
-					</h:column>
-				</h:dataTable>
-			</fieldset>
-			<br/>
-		</c:if>
+		<fieldset>
+			<legend>Subordinates</legend>
+			<h:dataTable value="#{employeeDataController.subordinates}" var="subordinate">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					#{subordinate.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">First name</f:facet>
+					#{subordinate.firstName}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Last name</f:facet>
+					#{subordinate.lastName}
+				</h:column>
+			</h:dataTable>
+		</fieldset>
+		<br/>
 		<fieldset>
 			<legend>Contacts</legend>
 			<h:panelGroup id="contacts">
