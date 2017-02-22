@@ -78,13 +78,27 @@ public class NewEmployeeController {
     	Department department = departmentService.getDepartmentById(departmentId);
     	logger.debug("department: " + department);
     	employee = new Employee(firstName, lastName, Enum.valueOf(Gender.class, gender), Integer.parseInt(age), department);
-    	logger.debug("------ Chief ID: " + chiefId);
+    	logger.debug("Chief ID: " + chiefId);
     	if (!chiefId.equals("0")) {
     		employee.setChief(employeeService.getEmployeeById(Integer.parseInt(chiefId)));
     	}
     	employee.setStatus(Status.ACTIVE);
         employeeService.addNewEmployee(employee);
     }
+    
+	public Map<String,String> getCollegues() {
+		List<Employee> collegueList = null;
+		if (departmentId != null) {
+			collegueList = employeeService.getEmployeesOfDepartment(Integer.parseInt(departmentId));
+		}
+		Map<String,String> collegues = new LinkedHashMap<>();
+		collegues.put("No chief", "0");
+		if (collegueList != null) {
+			collegueList.forEach(c -> collegues.put(c.getFirstName() + " " +  c.getLastName(), String.valueOf(c.getId())));
+		}
+		logger.debug("Collegues: " + collegues);
+		return collegues;
+	}
     
     public String getFirstName() {
         return firstName;
@@ -149,20 +163,6 @@ public class NewEmployeeController {
 
 	public List<Integer> getAges() {
 		return ages;
-	}
-	
-	public Map<String,String> getCollegues() {
-		List<Employee> collegueList = null;
-		if (departmentId != null) {
-			collegueList = employeeService.getEmployeesOfDepartment(Integer.parseInt(departmentId));
-		}
-		Map<String,String> collegues = new LinkedHashMap<>();
-		collegues.put("No chief", "0");
-		if (collegueList != null) {
-			collegueList.forEach(c -> collegues.put(c.getFirstName() + " " +  c.getLastName(), String.valueOf(c.getId())));
-		}
-		logger.debug("Collegues: " + collegues);
-		return collegues;
 	}
 
 	public String getChiefId() {

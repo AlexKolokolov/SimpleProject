@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-  <appenders>
-    <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-    </Console>
+<Configuration>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
 
-    <File name="LogFile" append="false" fileName="D:\Logs\SimpleProject.log">
-        <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-    </File>             
-  </appenders>
-
-  <loggers>     
-    <root level="debug">
-    	<appender-ref ref="Console" level="debug"/>
-       	<appender-ref ref="LogFile" level="debug"/>
-    </root>    
-  </loggers>
-</configuration>
+		<File name="CommonFile" append="false" fileName="D:\Logs\common.log">
+			<PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+		<File name="ProjectFile" append="false" fileName="D:\Logs\project.log">
+			<PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.kolokolov.simpleproject" level="debug">
+			<AppenderRef ref="ProjectFile" />
+		</Logger>
+		<Root level="debug">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="CommonFile" />
+		</Root>
+	</Loggers>
+</Configuration>
