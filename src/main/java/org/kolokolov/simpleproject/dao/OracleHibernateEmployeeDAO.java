@@ -48,6 +48,14 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 		return session.createQuery("FROM Employee WHERE lastName = :lastName", Employee.class)
 				.setParameter("lastName", lastName).getResultList();
 	}
+	
+	@Override
+	@Transactional
+	public List<Employee> getEmployeesOfDepartment(int departmentId) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("FROM Employee WHERE department.id = :departmentId", Employee.class)
+				.setParameter("departmentId", departmentId).getResultList();
+	}
 
 	@Override
 	@Transactional

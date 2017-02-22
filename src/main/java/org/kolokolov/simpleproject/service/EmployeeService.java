@@ -88,4 +88,8 @@ public class EmployeeService {
 	public Employee getDepartmetChief(Department department) {
 		return employeeDAO.getDepartmentChief(department.getId());
 	}
+
+	public List<Employee> getEmployeesOfDepartment(int departmentId) {
+		return employeeDAO.getEmployeesOfDepartment(departmentId);
+	}
 }

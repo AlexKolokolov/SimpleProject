@@ -79,18 +79,21 @@
 				</h:selectOneMenu>
 				<br/>
 				<br/>
-				<h:selectOneMenu value="#{newEmployeeController.departmentId}">
+				<h:outputLabel for="setDepartment" value="Department" /><br/>
+				<h:selectOneMenu id="setDepartment" value="#{newEmployeeController.departmentId}">
 					<f:selectItems value="#{newEmployeeController.departments}" />
+					<f:ajax execute="setDepartment" render="collegues" />
 				</h:selectOneMenu>
 				<br/>
 				<br/>
-				<h:selectBooleanCheckbox value="#{newEmployeeController.departmentChief}" />Appoint a chief
+				<h:outputLabel for="collegues" value="Chief" /><br/>
+				<h:selectOneMenu id="collegues" value="#{newEmployeeController.chiefId}">
+					<f:selectItems value="#{newEmployeeController.collegues}" />
+				</h:selectOneMenu>
 				<br/>
 				<br/>
-				<h:commandButton value="Add employee" type="submit"
-					action="#{newEmployeeController.addNewEmployee}">
-					<f:ajax execute="@form"
-						render="addEmployeeMessage allEmployees emptyDeps" />
+				<h:commandButton value="Add employee" type="submit" action="#{newEmployeeController.addNewEmployee}">
+					<f:ajax execute="@form" render="addEmployeeMessage allEmployees emptyDeps" />
 				</h:commandButton>
 			</h:form>
 			<h:outputText id="addEmployeeMessage"

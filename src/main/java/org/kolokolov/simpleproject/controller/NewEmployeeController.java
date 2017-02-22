@@ -1,5 +1,6 @@
 package org.kolokolov.simpleproject.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,12 +40,12 @@ public class NewEmployeeController {
     private String age;
     private String gender = "MALE";
     
-    private String departmentId;
+    private String departmentId = "1";
     
-    private boolean departmentChief;
+    private String chiefId;
     
-    private Map<String, String> departments;
-    List<Integer> ages;
+    private Map<String,String> departments;
+    private List<Integer> ages;
     
     private Employee employee;
     
@@ -73,11 +74,13 @@ public class NewEmployeeController {
     
     @Secured({"ROLE_ADMIN"})
     public void addNewEmployee() {
+    	logger.debug("AddNewEmployee method runs");
     	Department department = departmentService.getDepartmentById(departmentId);
     	logger.debug("department: " + department);
     	employee = new Employee(firstName, lastName, Enum.valueOf(Gender.class, gender), Integer.parseInt(age), department);
-    	if (!departmentChief) {
-    		employee.setChief(employeeService.getDepartmetChief(department));
+    	logger.debug("------ Chief ID: " + chiefId);
+    	if (!chiefId.equals("0")) {
+    		employee.setChief(employeeService.getEmployeeById(Integer.parseInt(chiefId)));
     	}
     	employee.setStatus(Status.ACTIVE);
         employeeService.addNewEmployee(employee);
@@ -147,12 +150,26 @@ public class NewEmployeeController {
 	public List<Integer> getAges() {
 		return ages;
 	}
-
-	public boolean isDepartmentChief() {
-		return departmentChief;
+	
+	public Map<String,String> getCollegues() {
+		List<Employee> collegueList = null;
+		if (departmentId != null) {
+			collegueList = employeeService.getEmployeesOfDepartment(Integer.parseInt(departmentId));
+		}
+		Map<String,String> collegues = new LinkedHashMap<>();
+		collegues.put("No chief", "0");
+		if (collegueList != null) {
+			collegueList.forEach(c -> collegues.put(c.getFirstName() + " " +  c.getLastName(), String.valueOf(c.getId())));
+		}
+		logger.debug("Collegues: " + collegues);
+		return collegues;
 	}
 
-	public void setDepartmentChief(boolean departmentChief) {
-		this.departmentChief = departmentChief;
+	public String getChiefId() {
+		return chiefId;
+	}
+
+	public void setChiefId(String chiefId) {
+		this.chiefId = chiefId;
 	}
 }

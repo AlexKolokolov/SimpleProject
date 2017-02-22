@@ -26,4 +26,6 @@ public interface EmployeeDAO {
 	Employee getDepartmentChief(int departmnetId);
 	
 	List<Employee> getSubordinates(Employee employee);
+
+	List<Employee> getEmployeesOfDepartment(int departmentId);
 }
