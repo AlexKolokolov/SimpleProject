@@ -33,13 +33,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 			user = userDAO.getUserByName(userName);
 		} catch (NoResultException nre) {
 			logger.debug("Exception in userDAO: " + nre.getMessage());
-			logger.debug("No user found exception has been thown");
 			String exceptionMessage;
 			if (userName == null || userName.equals("")) {
 				exceptionMessage = "Empty user name";
 			} else {
 				exceptionMessage = String.format("No user with name %s has been found", userName);
 			}
+			logger.debug("New NoResultException has to be thown with message " + exceptionMessage);
 			throw new NoResultException(exceptionMessage);
 		}
 		logger.debug("======== User: " + user);
