@@ -26,6 +26,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.kolokolov.simpleproject.hstore.HstoreUserType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="employee")
 @TypeDef(name="hstore", typeClass=HstoreUserType.class)
@@ -56,21 +58,26 @@ public class Employee {
 	@Column(name="age")
 	private int age;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="chief_id")
 	private Employee chief;
     
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="department_id")
     private Department department;
 	
+	@JsonIgnore
 	@Type(type="hstore")
 	@Column(name="contacts")
 	private Map<String, String> contacts = new LinkedHashMap<>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="employee", cascade=CascadeType.ALL)
     private List<EmployeeFile> employeeFiles = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="employee", cascade=CascadeType.ALL)
     private List<Event> employeeEvents = new ArrayList<>();
 

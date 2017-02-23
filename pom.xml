@@ -63,6 +63,12 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>4.2.1.RELEASE</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.6.RELEASE</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
@@ -139,6 +145,14 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.25</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

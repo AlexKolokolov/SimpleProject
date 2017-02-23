@@ -57,14 +57,42 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"
   <servlet-mapping>
 		<servlet-name>FacesServlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FacesServlet</servlet-name>
-		<url-pattern>*.faces</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FacesServlet</servlet-name>
-		<url-pattern>*.xhtml</url-pattern>
-	</servlet-mapping>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FacesServlet</servlet-name>
+	<url-pattern>*.faces</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FacesServlet</servlet-name>
+	<url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>RestAPI</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/applicationContext.xml</param-value>
+    </init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RestAPI</servlet-name>
+  	<url-pattern>/webapi/*</url-pattern>
+  </servlet-mapping>
+	
+  <!--  <servlet>
+  	<servlet-name>JerseyWebApplication</servlet-name>
+  	<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+  	<init-param>
+  		<param-name>com.sun.jersey.config.property.packages</param-name>
+  		<param-value>org.kolokolov.simpleproject.restcontroller</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>JerseyWebApplication</servlet-name>
+  	<url-pattern>/webapi/*</url-pattern>
+  </servlet-mapping> -->
  
 </web-app>
