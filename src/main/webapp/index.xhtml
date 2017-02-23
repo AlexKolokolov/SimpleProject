@@ -82,7 +82,7 @@
 				<h:outputLabel for="selectDepartment" value="Department" /><br/>
 				<h:selectOneMenu id="selectDepartment" value="#{newEmployeeController.departmentId}">
 					<f:selectItems value="#{newEmployeeController.departments}" />
-					<f:ajax execute="selectDepartment" render="selectChief" />
+					<f:ajax execute="@this" render="selectChief" />
 				</h:selectOneMenu>
 				<br/>
 				<br/>
