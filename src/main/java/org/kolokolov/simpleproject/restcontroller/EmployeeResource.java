@@ -7,12 +7,13 @@ import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping(value="/employees")
 public class EmployeeResource {
@@ -22,7 +23,7 @@ public class EmployeeResource {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public List<Employee> getEmployees() {
 		logger.debug("Emloyee service: " + employeeService);
 		return employeeService.getAllEmployees();
