@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class OracleHibernateHistoryDAO implements HistoryDAO {
+public class HibernateHistoryDAO implements HistoryDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;

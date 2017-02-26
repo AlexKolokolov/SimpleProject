@@ -75,7 +75,7 @@ public class NewEmployeeController {
     @Secured({"ROLE_ADMIN"})
     public void addNewEmployee() {
     	logger.debug("AddNewEmployee method runs");
-    	Department department = departmentService.getDepartmentById(departmentId);
+    	Department department = departmentService.getDepartmentById(Integer.parseInt(departmentId));
     	logger.debug("department: " + department);
     	employee = new Employee(firstName, lastName, Enum.valueOf(Gender.class, gender), Integer.parseInt(age), department);
     	logger.debug("Chief ID: " + chiefId);

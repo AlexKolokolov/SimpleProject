@@ -7,7 +7,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +15,7 @@ public class User {
 	
 	@Id
 	@Column(name="user_id")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="usr_seq")
-    @SequenceGenerator(name="usr_seq", sequenceName="USR_SEQ", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@Column(name="user_name", unique=true)

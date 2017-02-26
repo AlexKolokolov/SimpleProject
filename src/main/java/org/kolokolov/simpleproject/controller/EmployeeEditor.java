@@ -64,7 +64,7 @@ public class EmployeeEditor {
 	public String saveEditedEmployee() {
 		logger.debug("Employee for editing: " + employee);
 		if (department.getId() != Integer.parseInt(departmentId)) {
-			department = departmentService.getDepartmentById(departmentId);
+			department = departmentService.getDepartmentById(Integer.parseInt(departmentId));
 			employee.setDepartment(department);
 			Event event = new Event();
 			String eventDescription = String.format("Employee %s %s has been transfered to %s department", employee.getFirstName(), employee.getLastName(), department.getName());

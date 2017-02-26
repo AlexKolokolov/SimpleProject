@@ -10,8 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="department")
@@ -19,13 +20,13 @@ public class Department {
 	
 	@Id
 	@Column(name="department_id")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dep_seq")
-	@SequenceGenerator(name="dep_seq", sequenceName="DEP_SEQ", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 	
 	@Column(name="name")
     private String name;
     
+	@JsonIgnore
 	@OneToMany(mappedBy="department")
     private List<Employee> employees;
     

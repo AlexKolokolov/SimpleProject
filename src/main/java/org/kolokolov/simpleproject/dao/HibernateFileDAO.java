@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class OracleHibernateFileDAO implements FileDAO {
+public class HibernateFileDAO implements FileDAO {
 	
 	private static Logger logger = LogManager.getLogger();
 	

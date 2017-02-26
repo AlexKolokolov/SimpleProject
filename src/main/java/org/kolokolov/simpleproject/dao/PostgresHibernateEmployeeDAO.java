@@ -1,6 +1,5 @@
 package org.kolokolov.simpleproject.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class OracleHibernateEmployeeDAO implements EmployeeDAO {
+public class PostgresHibernateEmployeeDAO implements EmployeeDAO {
 
 	private static Logger logger = LogManager.getLogger();
 
@@ -30,7 +29,7 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public OracleHibernateEmployeeDAO() {
+	public PostgresHibernateEmployeeDAO() {
 		logger.debug("HibernateEmployeeDAO instantiated");
 	}
 
@@ -67,17 +66,8 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 	@Override
 	public void removeEmployee(int id) {
 		logger.debug("removeEmployee runs with parameter: id = " + id);
-		try (Connection connection = dataSource.getConnection();
-				CallableStatement statement = connection
-						.prepareCall("BEGIN emp_manage.del_emp(:id, :errorCode); END;")) {
-			statement.setInt("id", id);
-			statement.registerOutParameter("errorCode", java.sql.Types.INTEGER);
-			statement.executeUpdate();
-			Integer result = statement.getInt("errorCode");
-			logger.debug("removeEmployee returned: " + result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery("DELETE FROM Employee WHERE id = :id", Employee.class).setParameter("id", id).executeUpdate();
 	}
 
 	@Override

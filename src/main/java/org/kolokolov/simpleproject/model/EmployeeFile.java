@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,8 +16,7 @@ public class EmployeeFile {
 	
 	@Id
 	@Column(name="employee_file_id")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="file_seq")
-	@SequenceGenerator(name="file_seq", sequenceName="File_SEQ", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 	
 	@Column(name = "file_name")

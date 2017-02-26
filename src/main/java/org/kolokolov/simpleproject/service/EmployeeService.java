@@ -21,7 +21,7 @@ public class EmployeeService {
 	private static Logger logger = LogManager.getLogger();
     
     @Autowired
-    @Qualifier("oracleHibernateEmployeeDAO")
+    @Qualifier("postgresHibernateEmployeeDAO")
     private EmployeeDAO employeeDAO;
     
     @Autowired
@@ -53,19 +53,16 @@ public class EmployeeService {
         historyDAO.addEvent(event);
     }
 
-    public Integer removeEmployee(int id) {
-    	Integer errorCode = employeeDAO.removeEmployee(id);
-    	if (errorCode != null && errorCode == 0) {
-    		Employee employee = employeeDAO.getEmployeesById(id);
-    		String eventDescription = String.format("Employee %s %s has been fired", employee.getFirstName(), employee.getLastName());
-    		Event event = new Event();
-    		event.setAction(historyDAO.getAction(3));
-    		event.setDescription(eventDescription);
-    		event.setEmployee(employee);
-    		event.setDate(new Date());
-    		historyDAO.addEvent(event);
-    	}
-        return errorCode;
+    public void removeEmployee(int id) {
+		Employee employee = employeeDAO.getEmployeesById(id);
+		String eventDescription = String.format("Employee %s %s has been fired", employee.getFirstName(), employee.getLastName());
+		Event event = new Event();
+		event.setAction(historyDAO.getAction(3));
+		event.setDescription(eventDescription);
+		event.setEmployee(employee);
+		event.setDate(new Date());
+		historyDAO.addEvent(event);
+		employeeDAO.removeEmployee(id);
     }
     
     public List<Employee> getSubordinates(Employee employee) {

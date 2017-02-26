@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class OracleHibernateUserDAO implements UserDAO {
+public class HibernateUserDAO implements UserDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;

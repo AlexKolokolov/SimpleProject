@@ -14,8 +14,6 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 public class EmployeeRemoveController {
     
-    Integer errorCode;
-    
     private Employee employeeToRemove;
     
     @Autowired
@@ -27,33 +25,17 @@ public class EmployeeRemoveController {
     
     public String getMessage() {
         String msg;
-        if (errorCode == null) {
+        if (employeeToRemove == null) {
             msg = "";
         } else {
-        	switch (errorCode) {
-			case 0:
-				msg = String.format("Employee %s %s has been fired", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
-				break;
-			case 1:
-				msg = String.format("Employee %s %s cannot be fired because he is a chairman", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
-				break;
-			case 2:
-				msg = String.format("Female employee %s %s cannot be fired", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
-				break;
-			case 3:
-				msg = String.format("Employee %s %s cannot be fired because of age", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
-				break;
-			default:
-				msg = "";
-				break;
-			}
+			msg = String.format("Employee %s %s has been fired", employeeToRemove.getFirstName(), employeeToRemove.getLastName());
         }
         return msg;
     }
     
     @Secured({"ROLE_ADMIN"})
     public void removeEmployee() {
-    	errorCode = employeeService.removeEmployee(employeeToRemove.getId());
+    	employeeService.removeEmployee(employeeToRemove.getId());
     }
 
 	public Employee getEmployeeToRemove() {
