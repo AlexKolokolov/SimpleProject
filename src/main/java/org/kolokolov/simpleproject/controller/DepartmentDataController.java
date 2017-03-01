@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Department;
+import org.kolokolov.simpleproject.model.DepartmentStatistic;
 import org.kolokolov.simpleproject.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,10 @@ public class DepartmentDataController {
 			emptyDepartments = new ArrayList<>();
 		}
 		return emptyDepartments;
+	}
+	
+	public List<DepartmentStatistic> getStatistic() {
+	    return departmentService.getStatistic();
 	}
 
 	public void setDepartmentService(DepartmentService departmentService) {

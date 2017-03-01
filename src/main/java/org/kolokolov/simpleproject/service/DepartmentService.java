@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.dao.DepartmentDAO;
 import org.kolokolov.simpleproject.model.Department;
+import org.kolokolov.simpleproject.model.DepartmentStatistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -38,4 +39,8 @@ public class DepartmentService {
 	public List<Department> getEmptyDepartments() {
 		return departmentDAO.getEmptyDepartments();
 	}
+
+    public List<DepartmentStatistic> getStatistic() {
+        return departmentDAO.getDepartmentStatistic();
+    }
 }

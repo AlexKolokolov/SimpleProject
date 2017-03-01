@@ -19,15 +19,19 @@
 					<h:column>
 						<f:facet name="header">ID</f:facet>
 							#{employee.id}
-						</h:column>
+					</h:column>
 					<h:column>
 						<f:facet name="header">First name</f:facet>
 							#{employee.firstName}
-						</h:column>
+					</h:column>
 					<h:column>
 						<f:facet name="header">Last name</f:facet>
 							#{employee.lastName}
-						</h:column>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Age</f:facet>
+							#{employee.age}
+					</h:column>
 					<h:column>
 						<f:facet name="header">Department</f:facet>
 							#{employee.department.name}
@@ -96,13 +100,14 @@
 				</h:selectOneMenu>
 				<br/>
 				<br/>
+				<h:outputLabel for="salary" value="Salary" /><br/>
 				<h:inputText id="salary" value="#{newEmployeeController.salary}"
 					a:placeholder="Set salary" />
 				<br/>
 				<br/>
 				<br/>
 				<h:commandButton value="Add employee" type="submit" action="#{newEmployeeController.addNewEmployee}">
-					<f:ajax execute="@form" render="addEmployeeMessage allEmployees emptyDeps" />
+					<f:ajax execute="@form" render="addEmployeeMessage allEmployees emptyDeps depStats" />
 				</h:commandButton>
 			</h:form>
 			<h:outputText id="addEmployeeMessage"
@@ -117,6 +122,42 @@
 					<h:outputText value="#{emptyDepartment}" />
 					<br/>
 				</ui:repeat>
+			</h:panelGroup>
+		</fieldset>
+		<br/>
+		<fieldset>
+			<legend>Departments statistics</legend>
+			<h:panelGroup id="depStats">
+				<h:dataTable value="#{departmentDataController.statistic}" var="stat">
+					<h:column>
+						<f:facet name="header">|Department|</f:facet>
+							#{stat.department}
+					</h:column>
+					<h:column>
+						<f:facet name="header">|Employees number|</f:facet>
+						<h:outputText value="#{stat.employeesNumber}" style="center" />	
+					</h:column>
+					<h:column>
+						<f:facet name="header">|Min salary|</f:facet>
+							#{stat.minSalary}
+					</h:column>
+					<h:column>
+						<f:facet name="header">|Max salary|</f:facet>
+							#{stat.maxSalary}
+					</h:column>
+					<h:column>
+						<f:facet name="header">|Total salary|</f:facet>
+							#{stat.totalSalary}
+					</h:column>
+					<h:column>
+						<f:facet name="header">|Average salary|</f:facet>
+							#{stat.averageSalary}
+					</h:column>
+					<h:column>
+						<f:facet name="header">|Women over 30 years old|</f:facet>
+							#{stat.womenNumber}
+					</h:column>
+				</h:dataTable>
 			</h:panelGroup>
 		</fieldset>
 	</h:body>

@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Department;
+import org.kolokolov.simpleproject.model.DepartmentStatistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,6 +61,12 @@ public class OracleHibernateDepartmentDAO implements DepartmentDAO {
 	public Department getDepartmentById(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Department.class, id);
+	}
+	
+@Override
+	public List<DepartmentStatistic> getDepartmentStatistic() {
+	    // TODO Auto-generated method stub
+	    return null;
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
