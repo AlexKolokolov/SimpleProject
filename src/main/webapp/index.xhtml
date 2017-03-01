@@ -33,6 +33,10 @@
 							#{employee.department.name}
 					</h:column>
 					<h:column>
+						<f:facet name="header">Salary</f:facet>
+							#{employee.salary} USD
+					</h:column>
+					<h:column>
 						<f:facet name="header">Status</f:facet>
 							#{employee.status}
 					</h:column>
@@ -90,6 +94,11 @@
 				<h:selectOneMenu id="selectChief" value="#{newEmployeeController.chiefId}">
 					<f:selectItems value="#{newEmployeeController.collegues}" />
 				</h:selectOneMenu>
+				<br/>
+				<br/>
+				<h:inputText id="salary" value="#{newEmployeeController.salary}"
+					a:placeholder="Set salary" />
+				<br/>
 				<br/>
 				<br/>
 				<h:commandButton value="Add employee" type="submit" action="#{newEmployeeController.addNewEmployee}">

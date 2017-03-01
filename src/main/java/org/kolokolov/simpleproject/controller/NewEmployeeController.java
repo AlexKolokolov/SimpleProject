@@ -1,5 +1,6 @@
 package org.kolokolov.simpleproject.controller;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,8 @@ public class NewEmployeeController {
     
     private String chiefId;
     
+    private String salary;
+    
     private Map<String,String> departments;
     private List<Integer> ages;
     
@@ -83,6 +86,7 @@ public class NewEmployeeController {
     		employee.setChief(employeeService.getEmployeeById(Integer.parseInt(chiefId)));
     	}
     	employee.setStatus(Status.ACTIVE);
+    	employee.setSalary(new BigDecimal(salary));
         employeeService.addNewEmployee(employee);
     }
     
@@ -172,4 +176,12 @@ public class NewEmployeeController {
 	public void setChiefId(String chiefId) {
 		this.chiefId = chiefId;
 	}
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
 }

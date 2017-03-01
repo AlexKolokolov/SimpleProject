@@ -1,5 +1,6 @@
 package org.kolokolov.simpleproject.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -65,6 +66,9 @@ public class Employee {
 	@ManyToOne
 	@JoinColumn(name="department_id")
     private Department department;
+	
+	@Column(name = "salary", columnDefinition="DECIMAL(7,2)")
+	private BigDecimal salary;
 	
 	@JsonIgnore
 	@Type(type="hstore")
@@ -191,8 +195,16 @@ public class Employee {
 	public void setChief(Employee chief) {
 		this.chief = chief;
 	}
+	
+	public BigDecimal getSalary() {
+        return salary;
+    }
 
-	@Override
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    @Override
     public String toString() {
         return "[ID: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", age: " + age + ", gender: " + gender + ", Department: " + department.getName() + "]";
     }
