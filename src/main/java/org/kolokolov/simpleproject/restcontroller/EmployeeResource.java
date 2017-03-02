@@ -33,7 +33,7 @@ public class EmployeeResource {
 		return new ResponseEntity<List<Employee>>(allEmployees, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
     public ResponseEntity<Employee> addNewEmployee(@RequestBody Employee newEmployee) {
 	    logger.debug("New employee is being added");
         employeeService.addNewEmployee(newEmployee);
@@ -44,7 +44,9 @@ public class EmployeeResource {
 	@RequestMapping(value="/{employeeId}", method=RequestMethod.GET)
 	public ResponseEntity<Employee> getEmployee(@PathVariable int employeeId) {
 	    Employee employee = employeeService.getEmployeeById(employeeId);
-		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
+	    ResponseEntity<Employee> responseEntity = (employee != null) ? 
+	            new ResponseEntity<>(employee, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return responseEntity;
 	}
 	
 	public void setEmployeeService(EmployeeService employeeService) {

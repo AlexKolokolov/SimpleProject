@@ -1,5 +1,6 @@
 package org.kolokolov.simpleproject.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name="department")
@@ -39,6 +41,18 @@ public class Department {
     public Department(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+    
+    public Department(String jsonDepartment) {
+        Department department = null;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            department = mapper.readValue(jsonDepartment, Department.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.id = department.id;
+        this.name = department.name;
     }
 
     public int getId() {
