@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.Gender;
-import org.kolokolov.simpleproject.model.Status;
 import org.kolokolov.simpleproject.service.DepartmentService;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +84,6 @@ public class NewEmployeeController {
     	if (!chiefId.equals("0")) {
     		employee.setChief(employeeService.getEmployeeById(Integer.parseInt(chiefId)));
     	}
-    	employee.setStatus(Status.ACTIVE);
     	employee.setSalary(new BigDecimal(salary));
         employeeService.addNewEmployee(employee);
     }

@@ -11,6 +11,7 @@ import org.kolokolov.simpleproject.model.Action;
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.Event;
+import org.kolokolov.simpleproject.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class EmployeeService {
 	}
 
 	public void addNewEmployee(Employee employee) {
+        employee.setStatus(Status.ACTIVE);
         int generatedId = employeeDAO.addNewEmployee(employee);
         String eventDescription = String.format("Employee %s %s has been hired", employee.getFirstName(), employee.getLastName());
         logger.debug("generated id = " + generatedId);
