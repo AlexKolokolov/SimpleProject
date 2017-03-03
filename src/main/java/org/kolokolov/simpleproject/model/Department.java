@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -43,16 +44,9 @@ public class Department {
         this.name = name;
     }
     
-    public Department(String jsonDepartment) {
-        Department department = null;
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            department = mapper.readValue(jsonDepartment, Department.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.id = department.id;
-        this.name = department.name;
+    @JsonCreator
+    public static Department deserializeFromJSON(String jsonDepartment) throws IOException {
+        return new ObjectMapper().readValue(jsonDepartment, Department.class);
     }
 
     public int getId() {

@@ -27,7 +27,6 @@ import org.hibernate.annotations.TypeDef;
 import org.kolokolov.simpleproject.hstore.HstoreUserType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="employee")
@@ -63,8 +62,6 @@ public class Employee {
 	@JoinColumn(name="chief_id")
 	private Employee chief;
     
-//	@JsonIgnore
-	@JsonProperty("department")
 	@ManyToOne
 	@JoinColumn(name="department_id")
     private Department department;
