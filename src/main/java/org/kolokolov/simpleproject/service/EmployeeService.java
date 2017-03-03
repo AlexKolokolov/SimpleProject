@@ -10,6 +10,7 @@ import org.kolokolov.simpleproject.dao.HistoryDAO;
 import org.kolokolov.simpleproject.model.Action;
 import org.kolokolov.simpleproject.model.Department;
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.EmployeeStatistic;
 import org.kolokolov.simpleproject.model.Event;
 import org.kolokolov.simpleproject.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,4 +95,8 @@ public class EmployeeService {
 	public List<Employee> getEmployeesOfDepartment(int departmentId) {
 		return employeeDAO.getEmployeesOfDepartment(departmentId);
 	}
+
+    public List<EmployeeStatistic> getEmployeeStatistics() {
+        return employeeDAO.getEmployeeStatistics();
+    }
 }

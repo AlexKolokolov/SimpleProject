@@ -3,6 +3,7 @@ package org.kolokolov.simpleproject.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.EmployeeFile;
+import org.kolokolov.simpleproject.model.EmployeeStatistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -158,6 +160,52 @@ public class PostgresHibernateEmployeeDAO implements EmployeeDAO {
 		}
 		return resultList;
 	}
+	
+    @Override
+    public List<EmployeeStatistic> getEmployeeStatistics() {
+        List<EmployeeStatistic> statistics = new ArrayList<>();
+        String query = "SELECT " 
+                + "e.first_name, " 
+                + "e.last_name, " 
+                + "d.name, " 
+                + "e.salary, "
+                + "round(AVG(e.salary) OVER (), 2), " 
+                + "round(AVG(e.salary) OVER (PARTITION BY e.department_id), 2), "
+                + "round(AVG(e.salary) OVER (PARTITION BY e.gender), 2), "
+                + "round(AVG(e.salary) OVER (PARTITION BY e.gender, e.department_id), 2), "
+                + "COUNT(e.employee_id) OVER (PARTITION BY e.gender, e.department_id), "
+                + "COUNT(CASE WHEN e.gender = 0 THEN e.employee_id END) OVER (PARTITION BY e.department_id), "
+                + "COUNT(CASE WHEN e.gender = 1 THEN e.employee_id END) OVER (PARTITION BY e.department_id), "
+                + "COUNT(CASE WHEN e.gender = 0 THEN e.employee_id END) OVER (), "
+                + "COUNT(CASE WHEN e.gender = 1 THEN e.employee_id END) OVER () "
+                + "FROM employee e "
+                + "NATURAL JOIN department d";
+        try (Connection connection = dataSource.getConnection();
+                Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                EmployeeStatistic stat = new EmployeeStatistic();
+                stat.setFirstName(resultSet.getString(1));
+                stat.setLastName(resultSet.getString(2));
+                stat.setDepartment(resultSet.getString(3));
+                stat.setSalary(resultSet.getBigDecimal(4));
+                stat.setAvgSalary(resultSet.getBigDecimal(5));
+                stat.setAvgSalaryInDep(resultSet.getBigDecimal(6));
+                stat.setAvgSalaryByGender(resultSet.getBigDecimal(7));
+                stat.setAvgSalaryInDepByGender(resultSet.getBigDecimal(8));
+                stat.setSameGenderInDep(resultSet.getInt(9));
+                stat.setMenInDep(resultSet.getInt(10));
+                stat.setWomenInDep(resultSet.getInt(11));
+                stat.setMenTotal(resultSet.getInt(12));
+                stat.setWomenTotal(resultSet.getInt(13));
+                statistics.add(stat);
+            }
+        } catch (Exception e) {
+            statistics = null;
+            e.printStackTrace();
+        }
+        return statistics;
+    }
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

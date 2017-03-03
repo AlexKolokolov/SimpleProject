@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.EmployeeFile;
+import org.kolokolov.simpleproject.model.EmployeeStatistic;
 
 public interface EmployeeDAO {
 	
@@ -30,4 +31,6 @@ public interface EmployeeDAO {
 	List<Employee> getEmployeesOfDepartment(int departmentId);
 
 	List<Employee> getChiefs(Employee employee);
+
+    List<EmployeeStatistic> getEmployeeStatistics();
 }

@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kolokolov.simpleproject.model.Employee;
 import org.kolokolov.simpleproject.model.EmployeeFile;
+import org.kolokolov.simpleproject.model.EmployeeStatistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -167,6 +168,12 @@ public class OracleHibernateEmployeeDAO implements EmployeeDAO {
 			e.printStackTrace();
 		}
 		return resultList;
+	}
+	
+	@Override
+	public List<EmployeeStatistic> getEmployeeStatistics() {
+	    // TODO Auto-generated method stub
+	    return null;
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

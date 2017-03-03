@@ -75,7 +75,8 @@ public class PostgresHibernateDepartmentDAO implements DepartmentDAO {
                 + "FROM department d "                                                                                                                                                                                                                                                                                                                                                                                                                                                   
                 + "LEFT JOIN employee e ON d.department_id = e.department_id "
                 + "GROUP BY d.department_id";
-        try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = dataSource.getConnection(); 
+                Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 DepartmentStatistic stat = new DepartmentStatistic();

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kolokolov.simpleproject.model.Employee;
+import org.kolokolov.simpleproject.model.EmployeeStatistic;
 import org.kolokolov.simpleproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,14 @@ public class EmployeeResource {
 	    ResponseEntity<Employee> responseEntity = (employee != null) ? 
 	            new ResponseEntity<>(employee, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		return responseEntity;
+	}
+	
+	@RequestMapping(value="/statistics", method=RequestMethod.GET)
+	public ResponseEntity<List<EmployeeStatistic>> getEmployeeStatistics() {
+	    List<EmployeeStatistic> statistics = employeeService.getEmployeeStatistics();
+	    
+	    return statistics != null ? 
+	            new ResponseEntity<>(statistics, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	public void setEmployeeService(EmployeeService employeeService) {
